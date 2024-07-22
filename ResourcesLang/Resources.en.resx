@@ -157,7 +157,7 @@
     <value>Welcome to NeirotexApp! Please load an .xml file to start!</value>
   </data>
   <data name="FileLoadedMessage" xml:space="preserve">
-    <value>File has been successfully loaded! {0}</value>
+    <value>File has been successfully loaded! {0} Press Start Reading!</value>
   </data>
   <data name="NoFileLoadedMessage" xml:space="preserve">
     <value>You cannot start reading as you have not loaded an .xml file!</value>
@@ -168,13 +168,13 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>There was an error!</value>
   </data>
-<data name="EEG" xml:space="preserve">
-  <value>EEG</value>
-</data>
-<data name="ECG" xml:space="preserve">
-  <value>ECG</value>
-</data>
-<data name="EMG" xml:space="preserve">
-  <value>EMG</value>
-</data>
+  <data name="EEG" xml:space="preserve">
+    <value>EEG</value>
+  </data>
+  <data name="ECG" xml:space="preserve">
+    <value>ECG</value>
+  </data>
+  <data name="EMG" xml:space="preserve">
+    <value>EMG</value>
+  </data>
 </root>

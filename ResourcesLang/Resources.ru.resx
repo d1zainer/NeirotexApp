@@ -157,7 +157,7 @@
     <value>Добро пожаловать в NeirotexApp! Загрузите файл с расширениемм .xml для начала работы!</value>
   </data>
   <data name="FileLoadedMessage" xml:space="preserve">
-    <value>Файл был успешно загружен! {0}</value>
+    <value>Файл был успешно загружен! {0} Нажмите кнопку Начать чтение!</value>
   </data>
   <data name="NoFileLoadedMessage" xml:space="preserve">
     <value>Вы не можете начать считывание, так как вы не загрузили файл .xml!</value>
@@ -168,14 +168,13 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Возникла Ошибка!</value>
   </data>
-<data name="EEG" xml:space="preserve">
-  <value>ЭЭГ</value>
-</data>
-<data name="ECG" xml:space="preserve">
-  <value>ЭКГ</value>
-</data>
-<data name="EMG" xml:space="preserve">
-  <value>ЭМГ</value>
-</data>
-
+  <data name="EEG" xml:space="preserve">
+    <value>ЭЭГ</value>
+  </data>
+  <data name="ECG" xml:space="preserve">
+    <value>ЭКГ</value>
+  </data>
+  <data name="EMG" xml:space="preserve">
+    <value>ЭМГ</value>
+  </data>
 </root>

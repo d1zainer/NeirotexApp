@@ -51,7 +51,7 @@
         <ComboBoxItem Content="Русский"/>
       </ComboBox>
 
-      <ToggleSwitch  Name="ThemeToggleSwitch" Foreground="#4C6A7A" Classes="LeftHeader" Content="BLack style  " ToolTip.Tip="Switch ThemeVariant &quot;LeftHeader&quot;" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180 35 0 0"  Checked="OnThemeToggleChecked" Unchecked="OnThemeToggleUnchecked" />
+      <ToggleSwitch  Name="ThemeToggleSwitch" Foreground="#4C6A7A" Classes="LeftHeader" Content="BLack style  " ToolTip.Tip="Switch ThemeVariant" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180 35 0 0"  Checked="OnThemeToggleChecked" Unchecked="OnThemeToggleUnchecked" />
       
     </Grid>
   </Grid>
