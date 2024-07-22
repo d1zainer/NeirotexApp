@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NeirotexApp.MVVM.ViewModels"
+        xmlns:views="using:NeirotexApp.MVVM.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
+        x:Class="NeirotexApp.MVVM.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/icon.png"
+        Title="NeirotexApp"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ExtendClientAreaToDecorationsHint="True" MinHeight="600" MinWidth="1200"
+        xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles">
+
+  <Window.Styles>
+    <StyleInclude Source="/Styles/Styles.axaml" />
+  </Window.Styles>
+
+  <Grid>
+    <Grid>
+      <Border BorderBrush="#4C6A7A" CornerRadius="5" BorderThickness="3" />
+      <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 50 0 0" Orientation="Horizontal">
+        <Button x:Name="LoadFileButton" Content="Загрузить файл" Click="OnOpenFileButtonClick" Classes="btn" Margin="0 0 0 0"/>
+        <Button x:Name="StartReadingButton" Content="Начать чтение" Click="OnReadFromFileClick" Classes="btn" Margin="20 0 0 0"/>
+      </StackPanel>
+
+      <Grid>
+        <Border BorderThickness="2.5" CornerRadius="5">
+          <StackPanel VerticalAlignment="Top" Margin="100 100 100 0">
+            <TextBlock x:Name="InfoWindowTitleTextBlock" Text="Информационное окно" HorizontalAlignment="Center" Foreground="#4C6A7A" FontSize="25" Margin="0 0 0 5"/>
+            <Border BorderBrush="#4C6A7A" BorderThickness="2.5" CornerRadius="5" HorizontalAlignment="Stretch">
+              <TextBlock x:Name="MessageTextBlock" Padding="10" Height="40" Foreground="{Binding MessageBrush}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Text="{Binding Message}"/>
+            </Border>
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <Grid Margin="100 210 100 50" Name="SignalGrid">
+        <Border BorderBrush="#4C6A7A" BorderThickness="2.5" CornerRadius="5"/>
+        <ScrollViewer Margin="5" VerticalScrollBarVisibility="Visible" Classes="no-auto-hide">
+          <ItemsControl x:Name="SignalItemsControl" HorizontalAlignment="Stretch"/>
+        </ScrollViewer>
+      </Grid>
+
+
+      <!-- ComboBox для выбора языка -->
+      <ComboBox Theme="{StaticResource MaterialOutlineComboBox}"  p1:ComboBoxAssist.Label="Switch Language" x:Name="LanguageComboBox" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10 15 0 0" Width="150" Height="40" >
+        <ComboBoxItem Content="English"/>
+        <ComboBoxItem Content="Русский"/>
+      </ComboBox>
+
+      <ToggleSwitch  Name="ThemeToggleSwitch" Foreground="#4C6A7A" Classes="LeftHeader" Content="BLack style  " ToolTip.Tip="Switch ThemeVariant &quot;LeftHeader&quot;" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180 35 0 0"  Checked="OnThemeToggleChecked" Unchecked="OnThemeToggleUnchecked" />
+      
+    </Grid>
+  </Grid>
+</Window>

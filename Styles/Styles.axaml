@@ -1,0 +1,90 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Стили для кнопок -->
+  <Style Selector="Button.btn">
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="BorderBrush" Value="White"/>
+    <!-- Основной цвет рамки -->
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Width" Value="200" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="FontSize" Value="15"/>
+    <Setter Property="VerticalAlignment" Value="Stretch" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="Foreground" Value="White" />
+    <Setter Property="RenderTransform">
+      <Setter.Value>
+        <ScaleTransform ScaleX="1.0" ScaleY="1.0"/>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Transitions">
+      <Transitions>
+        <DoubleTransition Property="Width" Duration="0:0:0.5"/>
+        <DoubleTransition Property="ScaleTransform.ScaleX" Duration="0:0:0.2"/>
+        <DoubleTransition Property="ScaleTransform.ScaleY" Duration="0:0:0.2"/>
+      </Transitions>
+    </Setter>
+  </Style>
+
+  <Style Selector="Button.btn:pointerover">
+    <Setter Property="BorderBrush" Value="White"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <!-- Цвет фона при наведении -->
+    <Setter Property="RenderTransform">
+      <Setter.Value>
+        <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+  <Style Selector="TextBlock.Title">
+    <Setter Property="Foreground" Value="#34854D"/>
+    <Setter Property="FontSize" Value="30"/>
+    <Setter Property="FontFamily" Value="Roboto"/>
+  </Style>
+
+  <Style Selector="ScrollBar">
+    <Setter Property="Background" Value="White"/>
+    <Setter Property="Foreground" Value="White"/>
+    <Setter Property="BorderBrush" Value="Gray"/>
+    <Setter Property="BorderThickness" Value="1"/>
+  </Style>
+
+
+  <!-- Стиль для ComboBox -->
+  <Style Selector="ComboBox" >
+    <Setter Property="Background" Value="#4C6A7A"/>
+    <!-- Фон внутри ComboBox -->
+    <Setter Property="Foreground" Value="#4C6A7A"/>
+    <!-- Цвет текста внутри ComboBox -->
+    <Setter Property="BorderBrush" Value="#4C6A7A"/>
+    <!-- Цвет границы ComboBox -->
+    <Setter Property="BorderThickness" Value="2"/>
+    <!-- Толщина границы ComboBox -->
+    <Setter Property="CornerRadius" Value="5"/>
+    
+    <!-- Закругление углов ComboBox -->
+  </Style>
+
+  <!-- Стиль для ComboBoxItem -->
+  <Style Selector="ComboBoxItem">
+    <Setter Property="Background" Value="#4C6A7A"/>
+    <!-- Фон элемента внутри ComboBox -->
+    <Setter Property="Foreground" Value="White"/>
+    <!-- Цвет текста элемента внутри ComboBox -->
+  </Style>
+
+  <!-- Стиль для выбранного элемента ComboBox -->
+  <Style Selector="ComboBox:readonly ComboBoxItem:select">
+    <Setter Property="Background" Value="Black"/>
+    <!-- Фон выбранного элемента -->
+    <Setter Property="Foreground" Value="Black"/>
+    <Setter Property="Height" Value="40"/>
+    <!-- Цвет текста выбранного элемента -->
+  </Style>
+  <!-- Add Styles Here -->
+</Styles>

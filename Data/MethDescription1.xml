@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BOSMeth TemplateGUID="{5EFADB78-15A6-4D9E-A1D3-E761F71E5F3B}">
+  <Channels>
+    <Channel UnicNumber="0" SignalFileName="Signal0.bcf" Type="1" EffectiveFd="1000"/>
+    <Channel UnicNumber="2" SignalFileName="Signal2.bcf" Type="3" EffectiveFd="1000"/>
+   
+  </Channels>
+</BOSMeth>
