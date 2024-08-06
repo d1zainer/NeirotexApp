@@ -12,6 +12,7 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <None Remove="Assets\icon.png" />
+    <None Remove="Assets\setting.png" />
     <AvaloniaResource Include="App\App.axaml.cs" />
     <AvaloniaXaml Include="ResourcesLang\Resources.ru.resx" />
     <AvaloniaXaml Include="ResourcesLang\Resources.en.resx" />

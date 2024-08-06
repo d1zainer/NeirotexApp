@@ -23,14 +23,23 @@ namespace NeirotexApp.MVVM.Views
         {
             InitializeComponent();
             DataContext = _viewModel;
-            
+
             this.PointerPressed += OnWindowPointerPressed;
 
-            SetInitialCulture(); 
+            SetInitialCulture();
 
             LanguageComboBox.SelectionChanged += OnLanguageSelectionChanged;
 
             ThemeToggleSwitch.IsChecked = false;
+
+            SettingButton.Click += SettingButton_Click;
+            SettingPanel.IsVisible = false;
+        }
+
+        private void SettingButton_Click(object? sender, RoutedEventArgs e)
+        { 
+                SettingPanel.IsVisible = !SettingPanel.IsVisible;
+            
         }
         #region Toggle
         private void OnThemeToggleChecked(object sender, RoutedEventArgs e)
@@ -93,10 +102,10 @@ namespace NeirotexApp.MVVM.Views
         /// считываем текущий язык при инициализации
         /// </summary>
         private void SetInitialCulture()
-        {         
+        {
             string initialCulture = CultureInfo.CurrentCulture.Name;
             SetCulture(initialCulture);
-            
+
             if (initialCulture.StartsWith("ru"))
             {
                 LanguageComboBox.SelectedIndex = 1; // Русский
@@ -126,7 +135,7 @@ namespace NeirotexApp.MVVM.Views
         /// </summary>
         private void UpdateStrings()
         {
-            InfoWindowTitleTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.InfoPanel) ;
+            InfoWindowTitleTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.InfoPanel);
             LoadFileButton.Content = LangController.Instance.GetString(LangController.TitleKeys.LoadFileBtn);
             StartReadingButton.Content = LangController.Instance.GetString(LangController.TitleKeys.StartReadingBtn);
             //обновляем контролы
@@ -134,7 +143,7 @@ namespace NeirotexApp.MVVM.Views
             {
                 if (signalControl is SignalControl sc)
                 {
-                    sc.UpdateStrings();                
+                    sc.UpdateStrings();
                 }
             }
             //обновляем вьюмодели
@@ -144,9 +153,9 @@ namespace NeirotexApp.MVVM.Views
             }
 
         }
-    
 
-      
+
+
         /// <summary>
         /// кнопка загрузить файл
         /// </summary>
@@ -167,7 +176,7 @@ namespace NeirotexApp.MVVM.Views
             {
                 MainWindowViewModel.InformationStringAction?.DynamicInvoke(LangController.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
                 throw new Exception(ex.Message);
-                
+
             }
         }
 
@@ -188,6 +197,7 @@ namespace NeirotexApp.MVVM.Views
             else
                 BeginMoveDrag(e);
         }
+    
 
         /// <summary>
         /// загружаем контролы
