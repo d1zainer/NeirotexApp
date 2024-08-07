@@ -1,7 +1,4 @@
-﻿using NeirotexApp.MVVM.ViewModels;
-using NeirotexApp.ResourcesLang;
-using NeirotexApp.UI;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;

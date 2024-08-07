@@ -3,25 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NeirotexApp.UI
 {
     public class FileDialog
     {
-        static  string appDirectory => AppDomain.CurrentDomain.BaseDirectory;
-        static  string projectPath => appDirectory.Substring(0, appDirectory.IndexOf("\\bin"));
+        private static string _folderPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
+        public static string FolderPath => _folderPath;
 
-        public static readonly string folderPath = Path.Combine(projectPath, "Data");
+        // Метод для проверки существования папки и создания её при необходимости
+        private static void EnsureFolderExists()
+        {
+            if (!Directory.Exists(FolderPath))
+            {
+                Directory.CreateDirectory(FolderPath);
+            }
+        }
+
         public async Task<string?> ShowOpenFileDialog(Window parentWindow)
         {
+            // Убедитесь, что папка существует перед показом диалога
+            EnsureFolderExists();
+
             var dialog = new OpenFileDialog
             {
                 Title = "Выберите файл",
                 AllowMultiple = false,
-                Directory = folderPath,
+                Directory = FolderPath,
 
                 // Установите начальную директорию на папку Data
                 Filters = new List<FileDialogFilter>

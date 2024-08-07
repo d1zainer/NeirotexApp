@@ -1,6 +1,6 @@
-﻿using NeirotexApp.MVVM.Models;
+﻿using NeirotexApp.App;
+using NeirotexApp.MVVM.Models;
 using NeirotexApp.MVVM.ViewModels;
-using NeirotexApp.ResourcesLang;
 using NeirotexApp.UI;
 using System;
 using System.IO;
@@ -15,7 +15,7 @@ namespace NeirotexApp.Services
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static  BOSMeth LoadBOSMethFromXml(string filePath)
+        public static  BOSMeth? LoadBOSMethFromXml(string filePath)
         {
             try
             {

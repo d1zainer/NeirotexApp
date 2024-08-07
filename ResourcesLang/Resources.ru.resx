@@ -163,7 +163,7 @@
     <value>Вы не можете начать считывание, так как вы не загрузили файл .xml!</value>
   </data>
   <data name="DataProcessedMessage" xml:space="preserve">
-    <value>Данные были успешно обработаны!</value>
+    <value>Данные были успешно обработаны! TemplateGUID = {0}</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
     <value>Возникла Ошибка!</value>

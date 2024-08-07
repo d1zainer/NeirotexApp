@@ -1,96 +1,274 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:NeirotexApp.MVVM.ViewModels"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="300"
-             x:Class="NeirotexApp.MVVM.Views.SignalControl"
-             xmlns:Converter="using:NeirotexApp.UI"
-             x:DataType="vm:SignalViewModel">
+<UserControl
+    x:Class="NeirotexApp.MVVM.Views.SignalControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:NeirotexApp.MVVM.ViewModels"
+    d:DesignHeight="300"
+    d:DesignWidth="1000"
+    x:DataType="vm:SignalViewModel"
+    mc:Ignorable="d">
 
-  <UserControl.Resources>
-    <Converter:SignalTypeConverter x:Key="SignalTypeConverter" />
-  </UserControl.Resources>
 
-  <Border BorderBrush="#587A8D" BorderThickness="2" CornerRadius="7" Background="#B2C5CF" Padding="10" Margin="5 5 20 5">
-    <Grid VerticalAlignment="Stretch">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="2*"/>
-        <ColumnDefinition Width="1*"/>
-      </Grid.ColumnDefinitions>
+    <Border
+        Margin="5,5,20,5"
+        Padding="10"
+        Background="#B2C5CF"
+        BorderBrush="#587A8D"
+        BorderThickness="2"
+        CornerRadius="7">
+        <Grid VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
 
-      <Grid Grid.Column="0" Margin="5" VerticalAlignment="Center">
-        <Border BorderBrush="White" BorderThickness="1.5" CornerRadius="5" Padding="10" Margin="0 0 10 0">
-          <StackPanel>
-            <TextBlock x:Name="InfoHeaderTextBlock" Text="Основная информация о канале:" FontSize="22" FontWeight="Bold" Margin="0 0 0 10" />
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-              </Grid.RowDefinitions>
+            <Grid
+                Grid.Column="0"
+                Margin="5"
+                VerticalAlignment="Center">
+                <Border
+                    Margin="0,0,10,0"
+                    Padding="10"
+                    BorderBrush="White"
+                    BorderThickness="1.5"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <TextBlock
+                            x:Name="InfoHeaderTextBlock"
+                            Margin="0,0,0,10"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            Text="Основная информация о канале:" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-              <!-- Поле "Название" -->
-              <TextBlock x:Name="NameLabelTextBlock" Grid.Row="0" Text="Название:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="NameValueBorder" Grid.Row="0" Margin="100 0 0 5" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="300" Height="30">
-                <TextBlock x:Name="NameValueTextBlock" Text="{Binding SignalFileName}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="300" Height="30" />
-              </Border>
+                            <!--  Поле "Название"  -->
+                            <TextBlock
+                                x:Name="NameLabelTextBlock"
+                                Grid.Row="0"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Название:" />
+                            <Border
+                                x:Name="NameValueBorder"
+                                Grid.Row="0"
+                                Width="300"
+                                Height="30"
+                                Margin="100,0,0,5"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="NameValueTextBlock"
+                                    Width="300"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding SignalFileName}" />
+                            </Border>
 
-              <!-- Поле "Номер" -->
-              <TextBlock x:Name="NumberLabelTextBlock" Grid.Row="1" Text="Номер:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="NumberValueBorder" Grid.Row="1" Margin="-100 0 0 5" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="NumberValueTextBlock" Text="{Binding UnicNumber}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  Поле "Номер"  -->
+                            <TextBlock
+                                x:Name="NumberLabelTextBlock"
+                                Grid.Row="1"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Номер:" />
+                            <Border
+                                x:Name="NumberValueBorder"
+                                Grid.Row="1"
+                                Width="100"
+                                Height="30"
+                                Margin="-100,0,0,5"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="NumberValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding UnicNumber}" />
+                            </Border>
 
-              <!-- Поле "Тип" -->
-              <TextBlock x:Name="TypeLabelTextBlock" Grid.Row="2" Text="Тип:" FontSize="20" Margin="0 0 5 0"/> 
-              <Border x:Name="TypeValueBorder" Grid.Row="2" Margin="-100 0 0 5" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="TypeValueTextBlock" Text="{Binding TypeString}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  Поле "Тип"  -->
+                            <TextBlock
+                                x:Name="TypeLabelTextBlock"
+                                Grid.Row="2"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Тип:" />
+                            <Border
+                                x:Name="TypeValueBorder"
+                                Grid.Row="2"
+                                Width="100"
+                                Height="30"
+                                Margin="-100,0,0,5"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="TypeValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding TypeString}" />
+                            </Border>
 
-              <!-- Поле "Частота" -->
-              <TextBlock x:Name="FrequencyLabelTextBlock" Grid.Row="3" Text="Частота:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="FrequencyValueBorder" Grid.Row="3" Margin="-100 0 0 0" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="FrequencyValueTextBlock" Text="{Binding EffectiveFd}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  Поле "Частота"  -->
+                            <TextBlock
+                                x:Name="FrequencyLabelTextBlock"
+                                Grid.Row="3"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Частота:" />
+                            <Border
+                                x:Name="FrequencyValueBorder"
+                                Grid.Row="3"
+                                Width="100"
+                                Height="30"
+                                Margin="-100,0,0,0"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="FrequencyValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding EffectiveFd}" />
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
             </Grid>
-          </StackPanel>
-        </Border>
-      </Grid>
 
-      <Grid Grid.Column="1" Margin="5" VerticalAlignment="Center">
-        <Border BorderBrush="White" BorderThickness="1.5" CornerRadius="5" Padding="10" Margin="0 0 10 0">
-          <StackPanel>
-            <TextBlock x:Name="ValuesHeaderTextBlock" Text="Значения:" FontSize="22" FontWeight="Bold" Margin="0 0 0 10" />
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-              </Grid.RowDefinitions>
+            <Grid
+                Grid.Column="1"
+                Margin="5"
+                VerticalAlignment="Center">
+                <Border
+                    Margin="0,0,10,0"
+                    Padding="10"
+                    BorderBrush="White"
+                    BorderThickness="1.5"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <TextBlock
+                            x:Name="ValuesHeaderTextBlock"
+                            Margin="0,0,0,10"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            Text="Значения:" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-              <!-- MathValue -->
-              <TextBlock x:Name="MathValueLabelTextBlock" Grid.Row="0" Text="Мат. Ожидание:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="MathValueBorder" Grid.Row="0" Margin="140 0 0 5" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="MathValueTextBlock" Text="{Binding MathValue}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  MathValue  -->
+                            <TextBlock
+                                x:Name="MathValueLabelTextBlock"
+                                Grid.Row="0"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Мат. Ожидание:" />
+                            <Border
+                                x:Name="MathValueBorder"
+                                Grid.Row="0"
+                                Width="100"
+                                Height="30"
+                                Margin="140,0,0,5"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="MathValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding MathValue}" />
+                            </Border>
 
-              <!-- MinValue -->
-              <TextBlock x:Name="MinValueLabelTextBlock" Grid.Row="1" Text="Минимум:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="MinValueBorder" Grid.Row="1" Margin="140 0 0 5" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="MinValueTextBlock" Text="{Binding MinValue}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  MinValue  -->
+                            <TextBlock
+                                x:Name="MinValueLabelTextBlock"
+                                Grid.Row="1"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Минимум:" />
+                            <Border
+                                x:Name="MinValueBorder"
+                                Grid.Row="1"
+                                Width="100"
+                                Height="30"
+                                Margin="140,0,0,5"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="MinValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding MinValue}" />
+                            </Border>
 
-              <!-- MaxValue -->
-              <TextBlock x:Name="MaxValueLabelTextBlock" Grid.Row="2" Text="Максимум:" FontSize="20" Margin="0 0 5 0"/>
-              <Border x:Name="MaxValueBorder" Grid.Row="2" Margin="140 0 0 0" BorderBrush="#0D2644" BorderThickness="1" CornerRadius="20" Background="#DCE4E9" Width="100" Height="30">
-                <TextBlock x:Name="MaxValueTextBlock" Text="{Binding MaxValue}" FontSize="16" Foreground="#0D2644" Padding="5,5,0,0" Width="100" Height="30" />
-              </Border>
+                            <!--  MaxValue  -->
+                            <TextBlock
+                                x:Name="MaxValueLabelTextBlock"
+                                Grid.Row="2"
+                                Margin="0,0,5,0"
+                                FontSize="20"
+                                Text="Максимум:" />
+                            <Border
+                                x:Name="MaxValueBorder"
+                                Grid.Row="2"
+                                Width="100"
+                                Height="30"
+                                Margin="140,0,0,0"
+                                Background="#DCE4E9"
+                                BorderBrush="#0D2644"
+                                BorderThickness="1"
+                                CornerRadius="20">
+                                <TextBlock
+                                    x:Name="MaxValueTextBlock"
+                                    Width="100"
+                                    Height="30"
+                                    Padding="5,5,0,0"
+                                    FontSize="16"
+                                    Foreground="#0D2644"
+                                    Text="{Binding MaxValue}" />
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
             </Grid>
-          </StackPanel>
-        </Border>
-      </Grid>
-    </Grid>
-  </Border>
+        </Grid>
+    </Border>
 </UserControl>

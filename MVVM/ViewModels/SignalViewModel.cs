@@ -1,13 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NeirotexApp.ResourcesLang;
-
+using NeirotexApp.App;
 
 namespace NeirotexApp.MVVM.ViewModels
 {
     public partial class SignalViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string _signalFileName;
+        private string? _signalFileName;
 
         [ObservableProperty]
         private int _effectiveFd;
@@ -29,7 +28,7 @@ namespace NeirotexApp.MVVM.ViewModels
 
         // Свойство для отображения типа
         [ObservableProperty]
-        private string _typeString;
+        private string? _typeString;
 
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace NeirotexApp.MVVM.ViewModels
             TypeString = GetSignalTypeString(_type);
         }
 
-        private string GetSignalTypeString(int signalType)
+        private string? GetSignalTypeString(int signalType)
         {
             return signalType switch
             {

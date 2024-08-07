@@ -1,14 +1,12 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
+using NeirotexApp.App;
 using NeirotexApp.MVVM.ViewModels;
-using NeirotexApp.ResourcesLang;
 using NeirotexApp.UI;
 using System;
 using System.Globalization;
-using System.Resources;
 using System.Threading;
 using FileDialog = NeirotexApp.UI.FileDialog;
 
@@ -81,7 +79,7 @@ namespace NeirotexApp.MVVM.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnLanguageSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnLanguageSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             if (sender is ComboBox comboBox)
             {
@@ -163,12 +161,12 @@ namespace NeirotexApp.MVVM.Views
         /// <param name="e"></param>
         private async void OnOpenFileButtonClick(object sender, RoutedEventArgs e)
         {
-            string selectedFile = await _fileDialogService.ShowOpenFileDialog(this);
+            string selectedFile = await _fileDialogService.ShowOpenFileDialog(this) ?? throw new InvalidOperationException();
             try
             {
                 if (!string.IsNullOrEmpty(selectedFile))
                 {
-                    _viewModel.GetBOSMeth(selectedFile);
+                    _viewModel.GetBosMeth(selectedFile);
                     LoadSignalControls();
                 }
             }
@@ -190,7 +188,7 @@ namespace NeirotexApp.MVVM.Views
             _viewModel.StartReadProccesing();
         }
 
-        private void OnWindowPointerPressed(object sender, PointerPressedEventArgs e)
+        private void OnWindowPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
                 return;

@@ -163,7 +163,7 @@
     <value>You cannot start reading as you have not loaded an .xml file!</value>
   </data>
   <data name="DataProcessedMessage" xml:space="preserve">
-    <value>Data has been successfully processed!</value>
+    <value>Data has been successfully processed! TemplateGUID = {0}</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
     <value>There was an error!</value>

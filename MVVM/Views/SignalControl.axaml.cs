@@ -1,6 +1,6 @@
 using Avalonia.Controls;
+using NeirotexApp.App;
 using NeirotexApp.MVVM.ViewModels;
-using NeirotexApp.ResourcesLang;
 using System;
 
 namespace NeirotexApp.MVVM.Views;

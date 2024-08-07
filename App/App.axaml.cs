@@ -1,12 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using NeirotexApp.MVVM.Views;
-using NeirotexApp.ResourcesLang;
-using System.Globalization;
-using System.Threading;
+
 
 namespace NeirotexApp.App
 {

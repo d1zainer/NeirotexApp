@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using NeirotexApp.App;
 using NeirotexApp.MVVM.Models;
-using NeirotexApp.ResourcesLang;
 using NeirotexApp.Services;
 using NeirotexApp.UI;
 using System;
@@ -21,24 +20,24 @@ namespace NeirotexApp.MVVM.ViewModels
         public static Action<LangController.InfoMessageType, MessageType, object[]> InformationStringAction = delegate { }; // Измененный тип события
 
         [ObservableProperty]
-        private string _message;
+        private string? _message;
         [ObservableProperty]
-        private IBrush _messageBrush;
+        private IBrush? _messageBrush;
 
-        private List<string> _filePaths = new List<string>();
+        private List<string> _filePaths = new();
 
-        private BOSMeth BOSMethObject;
+        private BOSMeth? _bosMethObject ;
 
         [ObservableProperty]
         private ObservableCollection<SignalViewModel> _channelViewModels;
 
-        private Dictionary<string, SignalViewModel> _channelDictionary = new Dictionary<string, SignalViewModel>();
+        private readonly Dictionary<string, SignalViewModel> _channelDictionary = new ();
 
         private ThreadController _threadController = ThreadController.Instance;
 
         private LangController.InfoMessageType? _currentMessage;
         private MessageType _currentMessageTypeBrush;
-        private object[] _currentMessageArgs; // Добавлено для хранения аргументов сообщения
+        private object[]? _currentMessageArgs; // Добавлено для хранения аргументов сообщения
 
         public MainWindowViewModel()
         {
@@ -59,33 +58,31 @@ namespace NeirotexApp.MVVM.ViewModels
             }
         }
 
-        public void GetBOSMeth(string path)
+        public void GetBosMeth(string path)
         {
             try
             {
-                BOSMethObject = XMLService.LoadBOSMethFromXml(path);
-                if (BOSMethObject != null)
+                _bosMethObject = XMLService.LoadBOSMethFromXml(path);
+                SetInformationText(LangController.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
+                ChannelViewModels.Clear();
+                _filePaths.Clear(); // Очистка списка путей
+                _channelDictionary.Clear(); // Очистка словаря
+                foreach (var channel in _bosMethObject?.Channels?.ChannelList)
                 {
-                    SetInformationText(LangController.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
-                    ChannelViewModels.Clear();
-                    _filePaths.Clear(); // Очистка списка путей
-                    _channelDictionary.Clear(); // Очистка словаря
-                    foreach (var channel in BOSMethObject.Channels.ChannelList)
+                    var viewModel = new SignalViewModel
                     {
-                        var viewModel = new SignalViewModel
-                        {
-                            SignalFileName = channel.SignalFileName,
-                            UnicNumber = channel.UnicNumber,
+                        SignalFileName = channel.SignalFileName,
+                        UnicNumber = channel.UnicNumber,
                            
-                            EffectiveFd = channel.EffectiveFd
-                        };
-                        viewModel.SetType(channel.Type); // Устанавливаем тип
+                        EffectiveFd = channel.EffectiveFd
+                    };
+                    viewModel.SetType(channel.Type); // Устанавливаем тип
 
-                        ChannelViewModels.Add(viewModel);
+                    ChannelViewModels.Add(viewModel);
+                    if (channel.SignalFileName != null)
+                    {
                         _filePaths.Add(channel.SignalFileName);
-                      
-                            _channelDictionary.Add(channel.SignalFileName, viewModel);
-                        
+                        _channelDictionary.Add(channel.SignalFileName, viewModel);
                     }
                 }
             }
@@ -104,19 +101,20 @@ namespace NeirotexApp.MVVM.ViewModels
                 SetInformationText(LangController.InfoMessageType.NoFileLoadedMessage, MessageType.Error);
                 return;
             }
-            else
-            {
-                _threadController = new ThreadController(ChannelViewModels.ToList());
-                _threadController.StartProcessing();
-                UpdateUI(_threadController._results);
-                SetInformationText(LangController.InfoMessageType.DataProcessedMessage, MessageType.Info);
-            }
+
+            _threadController = new ThreadController(ChannelViewModels.ToList());
+            _threadController.StartProcessing();
+            UpdateUi(_threadController.Results);
+            if (_bosMethObject.TemplateGuid != null)
+                SetInformationText(LangController.InfoMessageType.DataProcessedMessage, MessageType.Info,
+                    _bosMethObject.TemplateGuid);
+
         }
         /// <summary>
         /// обновляем вьюмодели при получении значений
         /// </summary>
         /// <param name="keyValuePairs"></param>
-        private void UpdateUI(ConcurrentDictionary<SignalViewModel, (double, double, double)> keyValuePairs)
+        private void UpdateUi(ConcurrentDictionary<SignalViewModel, (double, double, double)> keyValuePairs)
         {
             foreach (var kvp in keyValuePairs)
             {
@@ -129,7 +127,7 @@ namespace NeirotexApp.MVVM.ViewModels
             }
         }
 
-        private void SetInformationText(LangController.InfoMessageType messageType, MessageType messageBrushType, params object[] args)
+        private void SetInformationText(LangController.InfoMessageType messageType, MessageType messageBrushType, params object[]? args)
         {
             _currentMessage = messageType;
             _currentMessageTypeBrush = messageBrushType;

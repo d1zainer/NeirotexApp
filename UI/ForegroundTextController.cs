@@ -14,7 +14,7 @@ namespace NeirotexApp.UI
         /// </summary>
         /// <param name="messageType"></param>
         /// <returns></returns>
-        public static IBrush GetBrushForMessageType(MessageType messageType)
+        public static IBrush? GetBrushForMessageType(MessageType messageType)
         {
             return messageType switch
             {
