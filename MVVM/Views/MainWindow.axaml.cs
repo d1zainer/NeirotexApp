@@ -4,17 +4,19 @@ using Avalonia.Interactivity;
 using Avalonia.Styling;
 using NeirotexApp.App;
 using NeirotexApp.MVVM.ViewModels;
+using NeirotexApp.Services;
 using NeirotexApp.UI;
 using System;
 using System.Globalization;
 using System.Threading;
+using Avalonia;
 using FileDialog = NeirotexApp.UI.FileDialog;
 
 namespace NeirotexApp.MVVM.Views
 {
     public partial class MainWindow : Window
     {
-        private readonly FileDialog _fileDialogService = new FileDialog();
+        private readonly FileDialog _fileDialogService = new ();
         private readonly MainWindowViewModel _viewModel = MainWindowViewModel.Instance;
 
         public MainWindow()
@@ -24,11 +26,9 @@ namespace NeirotexApp.MVVM.Views
 
             this.PointerPressed += OnWindowPointerPressed;
 
-            SetInitialCulture();
+            SetInitialSetting();
 
             LanguageComboBox.SelectionChanged += OnLanguageSelectionChanged;
-
-            ThemeToggleSwitch.IsChecked = false;
 
             SettingButton.Click += SettingButton_Click;
             SettingPanel.IsVisible = false;
@@ -36,44 +36,22 @@ namespace NeirotexApp.MVVM.Views
 
         private void SettingButton_Click(object? sender, RoutedEventArgs e)
         { 
-                SettingPanel.IsVisible = !SettingPanel.IsVisible;
-            
+            SettingPanel.IsVisible = !SettingPanel.IsVisible;
         }
+
         #region Toggle
         private void OnThemeToggleChecked(object sender, RoutedEventArgs e)
         {
-            ApplyTheme("Dark");
+            ThemeController.Instance.ApplyTheme("Dark");
         }
 
         private void OnThemeToggleUnchecked(object sender, RoutedEventArgs e)
         {
-            ApplyTheme("Light");
+            ThemeController.Instance.ApplyTheme("Light");
         }
         #endregion
 
-        /// <summary>
-        /// сменя светлой и темной темы
-        /// </summary>
-        /// <param name="themeName"></param>
-        /// <exception cref="ArgumentException"></exception>
-        private void ApplyTheme(string themeName)
-        {
-            var app = App.App.Current;
-            if (app != null)
-            {
-                switch (themeName)
-                {
-                    case "Dark":
-                        app.RequestedThemeVariant = ThemeVariant.Dark;
-                        break;
-                    case "Light":
-                        app.RequestedThemeVariant = ThemeVariant.Light;
-                        break;
-                    default:
-                        throw new ArgumentException("Invalid theme name", nameof(themeName));
-                }
-            }
-        }
+      
         /// <summary>
         /// выбор языка через комбобокс
         /// </summary>
@@ -88,8 +66,7 @@ namespace NeirotexApp.MVVM.Views
                 {
                     // Установите выбранный язык
                     string cultureCode = selectedItem.Content.ToString() == "Русский" ? "ru-RU" : "en-US";
-                    SetCulture(cultureCode);
-
+                    LangController.Instance.SetCulture(cultureCode);
                     // Обновите строки на новой культуре
                     UpdateStrings();
                 }
@@ -97,37 +74,19 @@ namespace NeirotexApp.MVVM.Views
         }
 
         /// <summary>
-        /// считываем текущий язык при инициализации
+        /// Инициализация приложения - язык и цвет темы
         /// </summary>
-        private void SetInitialCulture()
+        private void SetInitialSetting()
         {
-            string initialCulture = CultureInfo.CurrentCulture.Name;
-            SetCulture(initialCulture);
+            LangController.Instance.LoadCulture();
+            ThemeController.Instance.LoadTheme();
 
-            if (initialCulture.StartsWith("ru"))
-            {
-                LanguageComboBox.SelectedIndex = 1; // Русский
-            }
-            else
-            {
-                LanguageComboBox.SelectedIndex = 0; // Английский
-            }
+            LanguageComboBox.SelectedIndex = Thread.CurrentThread.CurrentCulture.ToString().StartsWith("ru") ? 1 : 0; // Русский
+            ThemeToggleSwitch.IsChecked = Application.Current?.ActualThemeVariant.ToString() != "Light";
 
-
-        }
-        /// <summary>
-        /// Сменяей язык
-        /// </summary>
-        /// <param name="cultureCode"></param>
-        private void SetCulture(string cultureCode)
-        {
-            var cultureInfo = new CultureInfo(cultureCode);
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
             UpdateStrings();
-            LangController.Instance.LanguageChanged?.Invoke(); //вызываем событие, что произошла смена
-
         }
+       
         /// <summary>
         /// обновляем строки на новый язык
         /// </summary>
@@ -161,18 +120,21 @@ namespace NeirotexApp.MVVM.Views
         /// <param name="e"></param>
         private async void OnOpenFileButtonClick(object sender, RoutedEventArgs e)
         {
-            string selectedFile = await _fileDialogService.ShowOpenFileDialog(this) ?? throw new InvalidOperationException();
+            string? selectedFile = await _fileDialogService.ShowOpenFileDialog(this);
             try
             {
-                if (!string.IsNullOrEmpty(selectedFile))
-                {
-                    _viewModel.GetBosMeth(selectedFile);
-                    LoadSignalControls();
-                }
+                
+                    if (!string.IsNullOrEmpty(selectedFile))
+                    {
+                        _viewModel.GetBosMeth(selectedFile);
+                        LoadSignalControls();
+                    }
+                
             }
             catch (Exception ex)
             {
-                MainWindowViewModel.InformationStringAction?.DynamicInvoke(LangController.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
+                MainWindowViewModel.InformationStringAction?.DynamicInvoke(LangController.InfoMessageType.ErrorMessage,
+                    MessageType.Error, ex.Message);
                 throw new Exception(ex.Message);
 
             }

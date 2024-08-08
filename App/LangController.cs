@@ -1,28 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using NeirotexApp.MVVM.Views;
+using NeirotexApp.Services;
 
 namespace NeirotexApp.App;
 
 public class LangController
 {
-    public enum InfoMessageType
-    {
-        WelcomeMessage,
-        FileLoadedMessage,
-        NoFileLoadedMessage,
-        DataProcessedMessage,
-        ErrorMessage
-    }
-
     private static readonly Lazy<LangController> _langControllerInstance = new(() => new LangController());
 
     private static readonly ResourceManager ResourceManager =
         new("NeirotexApp.ResourcesLang.Resources", typeof(MainWindow).Assembly);
+    public static LangController Instance => _langControllerInstance.Value;
 
+    // Закрытый конструктор для синглтона
+   
+    /// <summary>
+    /// структура в которой находятся ключи для ресурсов
+    /// </summary>
+    public struct TitleKeys
+    {
+        public const string InfoPanel = "InfoWindowTitle";
+        public const string LoadFileBtn = "LoadFileButton";
+        public const string StartReadingBtn = "StartReadingButton";
+        public const string SignalFileName = "SignalFileName";
+        public const string UnicNumber = "UnicNumber";
+        public const string Type = "Type";
+        public const string EffectiveFd = "EffectiveFd";
+        public const string MathValue = "MathValue";
+        public const string MinValue = "MinValue";
+        public const string MaxValue = "MaxValue";
 
+        public const string InfoPanelChannel = "InfoWindowChannelTitle";
+        public const string ChannelValue = "ChannelValue";
+
+        public const string EEG = "EEG";
+        public const string ECG = "ECG";
+        public const string EMG = "EMG";
+    }
+  
     /// <summary>
     ///     словарь, в котором тип сообщения(Для информационного окна) и ключ
     /// </summary>
@@ -39,8 +59,14 @@ public class LangController
     ///  событие при смене языка
     /// </summary>
     public Action LanguageChanged = delegate { };
-
-    public static LangController Instance => _langControllerInstance.Value;
+    public enum InfoMessageType
+    {
+        WelcomeMessage,
+        FileLoadedMessage,
+        NoFileLoadedMessage,
+        DataProcessedMessage,
+        ErrorMessage
+    }
 
     /// <summary>
     ///     возращает сообщение по типу
@@ -67,29 +93,51 @@ public class LangController
     {
         return ResourceManager.GetString(key, Thread.CurrentThread.CurrentCulture);
     }
-
+    /// <summary>
+    /// Сменяей язык
+    /// </summary>
+    /// <param name="cultureCode"></param>
+    public void SetCulture(string cultureCode)
+    {
+        var cultureInfo = new CultureInfo(cultureCode);
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+        Thread.CurrentThread.CurrentUICulture = cultureInfo;
+        SaveCulture(cultureCode); // Сохранение культуры в XML файл
+        Instance.LanguageChanged?.Invoke(); //вызываем событие, что произошла смена
+    }
 
     /// <summary>
-    /// структура в которой находятся ключи для ресурсов
+    /// Сохранение текущей культуры с использованием XMLService
     /// </summary>
-    public struct TitleKeys
+    /// <param name="cultureCode"></param
+    /// 
+    private void SaveCulture(string cultureCode)
     {
-        public const string InfoPanel = "InfoWindowTitle";
-        public const string LoadFileBtn = "LoadFileButton";
-        public const string StartReadingBtn = "StartReadingButton";
-        public const string SignalFileName = "SignalFileName";
-        public const string UnicNumber = "UnicNumber";
-        public const string Type = "Type";
-        public const string EffectiveFd = "EffectiveFd";
-        public const string MathValue = "MathValue";
-        public const string MinValue = "MinValue";
-        public const string MaxValue = "MaxValue";
-
-        public const string InfoPanelChannel = "InfoWindowChannelTitle";
-        public const string ChannelValue = "ChannelValue";
-
-        public const string EEG = "EEG";
-        public const string ECG = "ECG";
-        public const string EMG = "EMG";
+        var settings = XMLService.LoadAppSettingsXml(); // Загрузка текущих настроек
+        settings.Language = cultureCode; // Обновление языка
+        XMLService.SaveAppSettingsXml(settings); // Сохранение обновленных настроек
     }
+    /// <summary>
+    /// Загрузка сохранённой культуры с использованием XMLService
+    /// </summary>
+    public void LoadCulture()
+    {
+        try
+        {
+            var settings = XMLService.LoadAppSettingsXml();
+            if (settings != null && !string.IsNullOrEmpty(settings.Language))
+            {
+                SetCulture(settings.Language);
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+
+
+
+
 }

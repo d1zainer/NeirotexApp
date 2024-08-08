@@ -62,7 +62,7 @@ namespace NeirotexApp.MVVM.ViewModels
         {
             try
             {
-                _bosMethObject = XMLService.LoadBOSMethFromXml(path);
+                _bosMethObject = XMLService.LoadBosMethFromXml(path);
                 SetInformationText(LangController.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
                 ChannelViewModels.Clear();
                 _filePaths.Clear(); // Очистка списка путей
