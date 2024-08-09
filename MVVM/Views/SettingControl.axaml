@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="NeirotexApp.MVVM.Views.SettingControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+    d:DesignHeight="130"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+
+
+    <Grid
+        x:Name="SettingPanel"
+        Margin="0,0,0,0"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <Border
+            BorderBrush="#587A8D"
+            BorderThickness="2"
+            CornerRadius="7" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+            <ComboBox
+                x:Name="LanguageComboBox"
+                Width="150"
+                Height="40"
+                Margin="10,10,10,10"
+                HorizontalAlignment="Right"
+                p1:ComboBoxAssist.Label="Switch Language"
+                Theme="{StaticResource MaterialOutlineComboBox}">
+                <ComboBoxItem Content="English" />
+                <ComboBoxItem Content="Русский" />
+            </ComboBox>
+
+            <ToggleSwitch
+                Name="ThemeToggleSwitch"
+                Margin="0,25,0,10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Classes="LeftHeader"
+                Content="Dark style  "
+                Foreground="#4C6A7A"
+                ToolTip.Tip="Switch ThemeVariant" />
+
+        </StackPanel>
+    </Grid>
+
+
+</UserControl>

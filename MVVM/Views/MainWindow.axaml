@@ -16,14 +16,15 @@
     ExtendClientAreaToDecorationsHint="True"
     Icon="/Assets/icon.png"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
+    WindowState="Normal"
     mc:Ignorable="d">
 
     <Window.Styles>
         <StyleInclude Source="/Styles/Styles.axaml" />
     </Window.Styles>
 
-    <Grid>
+    <Grid Name="MyGrid">
+
         <Grid>
             <Border
                 BorderBrush="#4C6A7A"
@@ -106,42 +107,7 @@
             </Button>
 
 
-            <Grid
-                x:Name="SettingPanel"
-                Margin="60,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
-                <Border
-                    BorderBrush="#587A8D"
-                    BorderThickness="2"
-                    CornerRadius="7" />
-                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                    <ComboBox
-                        x:Name="LanguageComboBox"
-                        Width="150"
-                        Height="40"
-                        Margin="10,10,10,10"
-                        HorizontalAlignment="Right"
-                        p1:ComboBoxAssist.Label="Switch Language"
-                        Theme="{StaticResource MaterialOutlineComboBox}">
-                        <ComboBoxItem Content="English" />
-                        <ComboBoxItem Content="Русский" />
-                    </ComboBox>
 
-                    <ToggleSwitch
-                        Name="ThemeToggleSwitch"
-                        Margin="0,25,0,10"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Checked="OnThemeToggleChecked"
-                        Classes="LeftHeader"
-                        Content="Dark style  "
-                        Foreground="#4C6A7A"
-                        ToolTip.Tip="Switch ThemeVariant"
-                        Unchecked="OnThemeToggleUnchecked" />
-
-                </StackPanel>
-            </Grid>
         </Grid>
     </Grid>
 </Window>

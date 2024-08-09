@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NeirotexApp.MVVM.ViewModels
 {
@@ -94,7 +95,7 @@ namespace NeirotexApp.MVVM.ViewModels
         /// <summary>
         /// начинаем чтение
         /// </summary>
-        public void StartReadProccesing()
+        public async Task StartReadProccesingAsync()
         {
             if (_filePaths.Count == 0)
             {
@@ -103,7 +104,7 @@ namespace NeirotexApp.MVVM.ViewModels
             }
 
             _threadController = new ThreadController(ChannelViewModels.ToList());
-            _threadController.StartProcessing();
+            await _threadController.StartProcessingAsync();
             UpdateUi(_threadController.Results);
             if (_bosMethObject.TemplateGuid != null)
                 SetInformationText(LangController.InfoMessageType.DataProcessedMessage, MessageType.Info,

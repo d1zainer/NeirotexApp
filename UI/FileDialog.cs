@@ -35,7 +35,7 @@ namespace NeirotexApp.UI
                 // Установите начальную директорию на папку Data
                 Filters = new List<FileDialogFilter>
                 {
-                    new() { Name = ".xml ", Extensions = new List<string> { "xml" } }
+                    new () { Name = ".xml ", Extensions = new List<string> { "xml" } }
                 }
             };
 

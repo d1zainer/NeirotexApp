@@ -16,8 +16,13 @@ namespace NeirotexApp.MVVM.Views
 {
     public partial class MainWindow : Window
     {
-        private readonly FileDialog _fileDialogService = new ();
+        private readonly FileDialog _fileDialogService = new FileDialog();
         private readonly MainWindowViewModel _viewModel = MainWindowViewModel.Instance;
+        private SettingControl _mySettingControl;
+
+
+        public static Action UpdateUi = delegate { };
+
 
         public MainWindow()
         {
@@ -26,64 +31,40 @@ namespace NeirotexApp.MVVM.Views
 
             this.PointerPressed += OnWindowPointerPressed;
 
-            SetInitialSetting();
-
-            LanguageComboBox.SelectionChanged += OnLanguageSelectionChanged;
+            InitSettings();
+            UpdateUi += UpdateStrings;
 
             SettingButton.Click += SettingButton_Click;
-            SettingPanel.IsVisible = false;
-        }
 
-        private void SettingButton_Click(object? sender, RoutedEventArgs e)
-        { 
-            SettingPanel.IsVisible = !SettingPanel.IsVisible;
-        }
-
-        #region Toggle
-        private void OnThemeToggleChecked(object sender, RoutedEventArgs e)
-        {
-            ThemeController.Instance.ApplyTheme("Dark");
-        }
-
-        private void OnThemeToggleUnchecked(object sender, RoutedEventArgs e)
-        {
-            ThemeController.Instance.ApplyTheme("Light");
-        }
-        #endregion
-
-      
-        /// <summary>
-        /// выбор языка через комбобокс
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnLanguageSelectionChanged(object? sender, SelectionChangedEventArgs e)
-        {
-            if (sender is ComboBox comboBox)
+            _mySettingControl = new SettingControl()
             {
-                var selectedItem = comboBox.SelectedItem as ComboBoxItem;
-                if (selectedItem != null)
+                Margin = new Thickness(60, 10, 0, 0),
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+                SettingPanel =
                 {
-                    // Установите выбранный язык
-                    string cultureCode = selectedItem.Content.ToString() == "Русский" ? "ru-RU" : "en-US";
-                    LangController.Instance.SetCulture(cultureCode);
-                    // Обновите строки на новой культуре
-                    UpdateStrings();
+                    IsVisible = false
                 }
-            }
+            };
+            
+            MyGrid.Children.Add(_mySettingControl);
+
+
         }
+        
+        private void SettingButton_Click(object? sender, RoutedEventArgs e)
+        {
+            _mySettingControl.SettingPanel.IsVisible = !_mySettingControl.SettingPanel.IsVisible;
+        }
+
 
         /// <summary>
         /// Инициализация приложения - язык и цвет темы
         /// </summary>
-        private void SetInitialSetting()
+        private void InitSettings()
         {
             LangController.Instance.LoadCulture();
             ThemeController.Instance.LoadTheme();
-
-            LanguageComboBox.SelectedIndex = Thread.CurrentThread.CurrentCulture.ToString().StartsWith("ru") ? 1 : 0; // Русский
-            ThemeToggleSwitch.IsChecked = Application.Current?.ActualThemeVariant.ToString() != "Light";
-
             UpdateStrings();
         }
        
@@ -147,15 +128,24 @@ namespace NeirotexApp.MVVM.Views
         /// <param name="e"></param>
         private void OnReadFromFileClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.StartReadProccesing();
+            _viewModel.StartReadProccesingAsync();
         }
 
         private void OnWindowPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             if (this.WindowState == WindowState.Maximized)
                 return;
-            else
-                BeginMoveDrag(e);
+
+           
+            var pointerPosition = e.GetPosition(this); 
+            var settingPanelBounds = _mySettingControl.Bounds; 
+
+            if (settingPanelBounds.Contains(pointerPosition))
+            {
+                return;
+            }
+            BeginMoveDrag(e);
+           
         }
     
 

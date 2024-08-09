@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
+
+
 
 namespace NeirotexApp.Services
 {
@@ -11,20 +15,25 @@ namespace NeirotexApp.Services
         private double _min; //мин значение
         private double _max; //макс значение
         private long _totalCount; //колличесвто символов
-        private double _sum; //сумма
+        private double _sum; // сумма
 
+      
         private const int _blockSize = 100;
 
-        private int _samplingRate; // Частота дискретизации
-  
+        private int _samplingRate = 0; // Частота дискретизации
+
+        
+
+
         public SignalValueService(int samplingRate)
         {
             _mean = 0;
-            _min = double.MaxValue;
-            _max = double.MinValue;
+            _min = double.NaN;
+            _max = double.NaN;
             _sum = 0;
             _totalCount = 0;
             _samplingRate = samplingRate;
+            
         }
 
         /// <summary>
@@ -37,19 +46,26 @@ namespace NeirotexApp.Services
         {
             try
             {
-                int delayValue = _samplingRate/1000;
                 using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 using (var binaryReader = new BinaryReader(fileStream))
                 {
                     var buffer = new double[_blockSize];
 
+                    bool isFirstBlock = true;
+
                     while (fileStream.Position < fileStream.Length)
                     {
                         int bytesRead = ReadBlock(binaryReader, buffer);
-                        CalculateStatistics(buffer, bytesRead);
 
-                        await Task.Delay(delayValue);
-                    }     
+                        if (isFirstBlock && bytesRead > 0)
+                        {
+                            // Инициализация min и max значений первым прочитанным значением
+                            _min = _max = buffer[0];
+                            isFirstBlock = false;
+                        }
+
+                        CalculateStatistics(buffer, bytesRead);
+                    }
                 }
             }
             catch (Exception ex)
@@ -102,11 +118,15 @@ namespace NeirotexApp.Services
         private void CalculateStatistics(double[] data, int count)
         {
             if (count == 0) return;
-            
-           _sum += data.Take(count).Sum();
-           _totalCount += count;
+
+            _sum += data.Take(count).Sum();
+         
+            _totalCount += count;
            _min = Math.Min(_min, data.Take(count).Min());
            _max = Math.Max(_max, data.Take(count).Max());    
         }
+
+
+
     }
 }

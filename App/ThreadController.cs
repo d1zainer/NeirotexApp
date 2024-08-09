@@ -18,6 +18,7 @@ public class ThreadController
     private readonly List<SignalViewModel> _signals; //список вьюмоделей сигналов
 
     public readonly ConcurrentDictionary<SignalViewModel, (double, double, double)> Results;
+
     
     public ThreadController(List<SignalViewModel> signals)
     {
@@ -27,25 +28,23 @@ public class ThreadController
 
     public static ThreadController Instance => ThreadControllerInstance.Value;
 
-    public void StartProcessing()
+    public async Task StartProcessingAsync()
     {
-        var mainThread = new Thread(ProcessFiles);
-        mainThread.Start();
-        mainThread.Join();
+        var tasks = _signals.Select(signal => Task.Run(() => ReadFromFileAsync(signal))).ToArray();
+        await Task.WhenAll(tasks);
     }
 
-    private void ProcessFiles()
-    {
-        var tasks = _signals.Select(signal =>
-            Task.Run(() => ReadFromFile(signal))).ToArray();
-        Task.WaitAll(tasks);
-    }
-
-    private async Task ReadFromFile(SignalViewModel signal)
+    private async Task ReadFromFileAsync(SignalViewModel signal)
     {
         var calculator = new SignalValueService(signal.EffectiveFd);
         var filePath = Path.Combine(FileDialog.FolderPath, signal.SignalFileName);
+
+        // Обработка файла асинхронно
         await calculator.ProcessFileAsync(filePath);
+
+        // Сохранение результатов в ConcurrentDictionary
         Results[signal] = calculator.GetResults();
     }
+
+   
 }
