@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using NeirotexApp.App;
 using NeirotexApp.MVVM.ViewModels;
+using NeirotexApp.UI.Managers;
 using System;
 
 namespace NeirotexApp.MVVM.Views;
@@ -22,33 +22,33 @@ public partial class SignalControl : UserControl
     public void UpdateStrings()
     {
         if (InfoHeaderTextBlock != null)
-            InfoHeaderTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.InfoPanelChannel);
+            InfoHeaderTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.InfoPanelChannel);
         if (InfoHeaderTextBlock != null)
-            InfoHeaderTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.InfoPanelChannel);
+            InfoHeaderTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.InfoPanelChannel);
 
         if (ValuesHeaderTextBlock != null)
-            ValuesHeaderTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.ChannelValue);
+            ValuesHeaderTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.ChannelValue);
 
         if (NameLabelTextBlock != null)
-            NameLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.SignalFileName);
+            NameLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.SignalFileName);
       
         if (NumberLabelTextBlock != null)
-            NumberLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.UnicNumber);
+            NumberLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.UnicNumber);
 
         if (TypeLabelTextBlock != null)
-            TypeLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.Type);
+            TypeLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.Type);
 
         if (FrequencyLabelTextBlock != null)
-            FrequencyLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.EffectiveFd);
+            FrequencyLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.EffectiveFd);
 
         if (MathValueLabelTextBlock != null)
-            MathValueLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.MathValue);
+            MathValueLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.MathValue);
 
         if (MinValueLabelTextBlock != null)
-            MinValueLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.MinValue);
+            MinValueLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.MinValue);
 
         if (MaxValueLabelTextBlock != null)
-            MaxValueLabelTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.MaxValue);
+            MaxValueLabelTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.MaxValue);
     }
 
 }

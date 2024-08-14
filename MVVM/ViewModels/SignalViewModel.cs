@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NeirotexApp.App;
+using NeirotexApp.UI.Managers;
 
 namespace NeirotexApp.MVVM.ViewModels
 {
@@ -43,9 +43,9 @@ namespace NeirotexApp.MVVM.ViewModels
         {
             return signalType switch
             {
-                1 => LangController.Instance.GetString(LangController.TitleKeys.EEG),
-                2 => LangController.Instance.GetString(LangController.TitleKeys.ECG),
-                3 => LangController.Instance.GetString(LangController.TitleKeys.EMG),
+                1 => LanguageManager.Instance.GetString(LanguageManager.TitleKeys.EEG),
+                2 => LanguageManager.Instance.GetString(LanguageManager.TitleKeys.ECG),
+                3 => LanguageManager.Instance.GetString(LanguageManager.TitleKeys.EMG),
                 _ => signalType.ToString()
             };
         }

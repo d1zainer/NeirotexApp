@@ -3,6 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
     xmlns:views="using:NeirotexApp.MVVM.Views"
@@ -14,7 +15,7 @@
     d:DesignWidth="1200"
     x:DataType="vm:MainWindowViewModel"
     ExtendClientAreaToDecorationsHint="True"
-    Icon="/Assets/icon.png"
+    Icon="/Assets/icon.ico"
     WindowStartupLocation="CenterScreen"
     WindowState="Normal"
     mc:Ignorable="d">
@@ -101,8 +102,13 @@
                 VerticalAlignment="Top"
                 Classes="btn">
 
+                <materialIcons:MaterialIcon
+                    Width="25"
+                    Height="25"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Kind="WrenchCogOutline" />
 
-                <Image Width="25" Source="/Assets/setting.png" />
 
             </Button>
 

@@ -11,22 +11,22 @@ using NeirotexApp.UI;
 
 namespace NeirotexApp.App;
 
-public class ThreadController
+public class ThreadManager
 {
-    private static readonly Lazy<ThreadController> ThreadControllerInstance = new(() => new ThreadController(new List<SignalViewModel>()));
+    private static readonly Lazy<ThreadManager> ThreadControllerInstance = new(() => new ThreadManager(new List<SignalViewModel>()));
 
     private readonly List<SignalViewModel> _signals; //список вьюмоделей сигналов
 
     public readonly ConcurrentDictionary<SignalViewModel, (double, double, double)> Results;
 
     
-    public ThreadController(List<SignalViewModel> signals)
+    public ThreadManager(List<SignalViewModel> signals)
     {
         _signals = signals;
         Results = new ConcurrentDictionary<SignalViewModel, (double, double, double)>();
     }
 
-    public static ThreadController Instance => ThreadControllerInstance.Value;
+    public static ThreadManager Instance => ThreadControllerInstance.Value;
 
     public async Task StartProcessingAsync()
     {

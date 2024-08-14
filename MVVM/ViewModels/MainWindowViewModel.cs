@@ -4,6 +4,7 @@ using NeirotexApp.App;
 using NeirotexApp.MVVM.Models;
 using NeirotexApp.Services;
 using NeirotexApp.UI;
+using NeirotexApp.UI.Managers;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace NeirotexApp.MVVM.ViewModels
         private static readonly Lazy<MainWindowViewModel> _mainWindowViewModelInstance = new Lazy<MainWindowViewModel>(() => new MainWindowViewModel());
         public static MainWindowViewModel Instance => _mainWindowViewModelInstance.Value;
 
-        public static Action<LangController.InfoMessageType, MessageType, object[]> InformationStringAction = delegate { }; // Измененный тип события
+        public static Action<LanguageManager.InfoMessageType, MessageType, object[]> InformationStringAction = delegate { }; // Измененный тип события
 
         [ObservableProperty]
         private string? _message;
@@ -34,17 +35,17 @@ namespace NeirotexApp.MVVM.ViewModels
 
         private readonly Dictionary<string, SignalViewModel> _channelDictionary = new ();
 
-        private ThreadController _threadController = ThreadController.Instance;
+        private ThreadManager _threadController = ThreadManager.Instance;
 
-        private LangController.InfoMessageType? _currentMessage;
+        private LanguageManager.InfoMessageType? _currentMessage;
         private MessageType _currentMessageTypeBrush;
         private object[]? _currentMessageArgs; // Добавлено для хранения аргументов сообщения
 
         public MainWindowViewModel()
         {
-            LangController.Instance.LanguageChanged += UpdateMessageLanguage;
+            LanguageManager.Instance.LanguageChanged += UpdateMessageLanguage;
 
-            SetInformationText(LangController.InfoMessageType.WelcomeMessage, MessageType.Info);
+            SetInformationText(LanguageManager.InfoMessageType.WelcomeMessage, MessageType.Info);
             InformationStringAction += SetInformationText;
             ChannelViewModels = new ObservableCollection<SignalViewModel>();
         }
@@ -64,7 +65,7 @@ namespace NeirotexApp.MVVM.ViewModels
             try
             {
                 _bosMethObject = XMLService.LoadBosMethFromXml(path);
-                SetInformationText(LangController.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
+                SetInformationText(LanguageManager.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
                 ChannelViewModels.Clear();
                 _filePaths.Clear(); // Очистка списка путей
                 _channelDictionary.Clear(); // Очистка словаря
@@ -89,7 +90,7 @@ namespace NeirotexApp.MVVM.ViewModels
             }
             catch (Exception ex)
             {
-                SetInformationText(LangController.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
+                SetInformationText(LanguageManager.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
             }
         }
         /// <summary>
@@ -99,15 +100,15 @@ namespace NeirotexApp.MVVM.ViewModels
         {
             if (_filePaths.Count == 0)
             {
-                SetInformationText(LangController.InfoMessageType.NoFileLoadedMessage, MessageType.Error);
+                SetInformationText(LanguageManager.InfoMessageType.NoFileLoadedMessage, MessageType.Error);
                 return;
             }
 
-            _threadController = new ThreadController(ChannelViewModels.ToList());
+            _threadController = new ThreadManager(ChannelViewModels.ToList());
             await _threadController.StartProcessingAsync();
             UpdateUi(_threadController.Results);
             if (_bosMethObject.TemplateGuid != null)
-                SetInformationText(LangController.InfoMessageType.DataProcessedMessage, MessageType.Info,
+                SetInformationText(LanguageManager.InfoMessageType.DataProcessedMessage, MessageType.Info,
                     _bosMethObject.TemplateGuid);
 
         }
@@ -128,13 +129,13 @@ namespace NeirotexApp.MVVM.ViewModels
             }
         }
 
-        private void SetInformationText(LangController.InfoMessageType messageType, MessageType messageBrushType, params object[]? args)
+        private void SetInformationText(LanguageManager.InfoMessageType messageType, MessageType messageBrushType, params object[]? args)
         {
             _currentMessage = messageType;
             _currentMessageTypeBrush = messageBrushType;
             _currentMessageArgs = args; // Сохранение аргументов сообщения
             Message = string.Empty;
-            Message = LangController.Instance.GetMessage(messageType, args);
+            Message = LanguageManager.Instance.GetMessage(messageType, args);
             MessageBrush = ForegroundTextController.GetBrushForMessageType(messageBrushType);
         }
     }

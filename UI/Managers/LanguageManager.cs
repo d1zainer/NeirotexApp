@@ -4,21 +4,22 @@ using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using NeirotexApp.MVVM.Models;
 using NeirotexApp.MVVM.Views;
 using NeirotexApp.Services;
 
-namespace NeirotexApp.App;
+namespace NeirotexApp.UI.Managers;
 
-public class LangController
+public class LanguageManager
 {
-    private static readonly Lazy<LangController> _langControllerInstance = new(() => new LangController());
+    private static readonly Lazy<LanguageManager> _langControllerInstance = new(() => new LanguageManager());
 
     private static readonly ResourceManager ResourceManager =
         new("NeirotexApp.ResourcesLang.Resources", typeof(MainWindow).Assembly);
-    public static LangController Instance => _langControllerInstance.Value;
+    public static LanguageManager Instance => _langControllerInstance.Value;
 
     // Закрытый конструктор для синглтона
-   
+
     /// <summary>
     /// структура в которой находятся ключи для ресурсов
     /// </summary>
@@ -42,7 +43,7 @@ public class LangController
         public const string ECG = "ECG";
         public const string EMG = "EMG";
     }
-  
+
     /// <summary>
     ///     словарь, в котором тип сообщения(Для информационного окна) и ключ
     /// </summary>
@@ -113,18 +114,17 @@ public class LangController
     /// 
     private void SaveCulture(string cultureCode)
     {
-        var settings = XMLService.LoadAppSettingsXml(); // Загрузка текущих настроек
+        var settings = SettingService.LoadSettings(); // Загрузка текущих настроек
         settings.Language = cultureCode; // Обновление языка
-        XMLService.SaveAppSettingsXml(settings); // Сохранение обновленных настроек
+        SettingService.SaveSettings(settings); // Сохранение обновленных настроек
     }
     /// <summary>
     /// Загрузка сохранённой культуры с использованием XMLService
     /// </summary>
-    public void LoadCulture()
+    public void LoadCulture(Settings settings)
     {
         try
         {
-            var settings = XMLService.LoadAppSettingsXml();
             if (settings != null && !string.IsNullOrEmpty(settings.Language))
             {
                 SetCulture(settings.Language);

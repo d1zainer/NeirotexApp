@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
-using NeirotexApp.App;
 using NeirotexApp.MVVM.ViewModels;
 using NeirotexApp.Services;
 using NeirotexApp.UI;
@@ -11,6 +10,7 @@ using System.Globalization;
 using System.Threading;
 using Avalonia;
 using FileDialog = NeirotexApp.UI.FileDialog;
+using NeirotexApp.UI.Managers;
 
 namespace NeirotexApp.MVVM.Views
 {
@@ -26,12 +26,14 @@ namespace NeirotexApp.MVVM.Views
 
         public MainWindow()
         {
+        
             InitializeComponent();
+            UpdateStrings();
             DataContext = _viewModel;
 
             this.PointerPressed += OnWindowPointerPressed;
 
-            InitSettings();
+            
             UpdateUi += UpdateStrings;
 
             SettingButton.Click += SettingButton_Click;
@@ -61,21 +63,21 @@ namespace NeirotexApp.MVVM.Views
         /// <summary>
         /// »нициализаци€ приложени€ - €зык и цвет темы
         /// </summary>
-        private void InitSettings()
-        {
-            LangController.Instance.LoadCulture();
-            ThemeController.Instance.LoadTheme();
-            UpdateStrings();
-        }
-       
+        //public void InitSettings()
+        //{
+        //    LanguageManager.Instance.LoadCulture();
+        //    ThemeManager.Instance.LoadTheme();
+
+        //}
+
         /// <summary>
         /// обновл€ем строки на новый €зык
         /// </summary>
         private void UpdateStrings()
         {
-            InfoWindowTitleTextBlock.Text = LangController.Instance.GetString(LangController.TitleKeys.InfoPanel);
-            LoadFileButton.Content = LangController.Instance.GetString(LangController.TitleKeys.LoadFileBtn);
-            StartReadingButton.Content = LangController.Instance.GetString(LangController.TitleKeys.StartReadingBtn);
+            InfoWindowTitleTextBlock.Text = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.InfoPanel);
+            LoadFileButton.Content = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.LoadFileBtn);
+            StartReadingButton.Content = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.StartReadingBtn);
             //обновл€ем контролы
             foreach (var signalControl in SignalItemsControl.Items)
             {
@@ -114,7 +116,7 @@ namespace NeirotexApp.MVVM.Views
             }
             catch (Exception ex)
             {
-                MainWindowViewModel.InformationStringAction?.DynamicInvoke(LangController.InfoMessageType.ErrorMessage,
+                MainWindowViewModel.InformationStringAction?.DynamicInvoke(LanguageManager.InfoMessageType.ErrorMessage,
                     MessageType.Error, ex.Message);
                 throw new Exception(ex.Message);
 

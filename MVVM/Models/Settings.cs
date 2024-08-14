@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NeirotexApp.MVVM.Models
 {
-    public class AppSettings
+    public class Settings
     {
         public string Language { get; set; }
 

@@ -3,6 +3,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using NeirotexApp.MVVM.Views;
+using NeirotexApp.Services;
+using NeirotexApp.UI.Managers;
 
 
 namespace NeirotexApp.App
@@ -14,12 +16,17 @@ namespace NeirotexApp.App
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                SettingService settingService = new SettingService();
+                //загрузка языка и темы
+                LanguageManager.Instance.LoadCulture(settingService.FirstSettings); 
+                ThemeManager.Instance.LoadTheme(settingService.FirstSettings);
                 // Line below is needed to remove Avalonia data validation.
                 // Without this line you will get duplicate validations from both Avalonia and CT
                 BindingPlugins.DataValidators.RemoveAt(0);
@@ -30,7 +37,7 @@ namespace NeirotexApp.App
                 desktop.MainWindow = new MainWindow
                 {
 
-
+                    
                 };
             }
 

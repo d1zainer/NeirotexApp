@@ -2,13 +2,15 @@
 using NeirotexApp.Services;
 using System;
 using Avalonia;
+using Avalonia.Controls.Selection;
+using NeirotexApp.Properties;
 
-namespace NeirotexApp.App
+namespace NeirotexApp.UI.Managers
 {
-    public class ThemeController
+    public class ThemeManager
     {
-        private static readonly Lazy<ThemeController> _themeControllerInstance = new(() => new ThemeController());
-        public static ThemeController Instance => _themeControllerInstance.Value;
+        private static readonly Lazy<ThemeManager> _themeControllerInstance = new(() => new ThemeManager());
+        public static ThemeManager Instance => _themeControllerInstance.Value;
 
         /// <summary>
         /// смена светлой и темной темы
@@ -42,19 +44,18 @@ namespace NeirotexApp.App
         /// <param name="themeName"></param>
         private void SaveTheme(string themeName)
         {
-            var settings = XMLService.LoadAppSettingsXml(); // Загрузка текущих настроек
+            var settings = SettingService.LoadSettings(); // Загрузка текущих настроек
             settings.Theme = themeName; // Обновление языка
-            XMLService.SaveAppSettingsXml(settings); // Сохранение обновленных настроек
+            SettingService.SaveSettings(settings); // Сохранение обновленных настроек
         }
 
         /// <summary>
         /// Загрузка темы
         /// </summary>
-        public void LoadTheme()
+        public void LoadTheme(NeirotexApp.MVVM.Models.Settings settings)
         {
             try
             {
-                var settings = XMLService.LoadAppSettingsXml();
                 if (settings != null && !string.IsNullOrEmpty(settings.Theme))
                 {
                     ApplyTheme(settings.Theme);

@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using NeirotexApp.App;
+using NeirotexApp.UI.Managers;
 using System.Threading;
 
 namespace NeirotexApp.MVVM.Views;
@@ -33,12 +33,12 @@ public partial class SettingControl : UserControl
 
     private void ThemeToggleSwitchOnUnchecked(object? sender, RoutedEventArgs e)
     {
-        ThemeController.Instance.ApplyTheme("Light");
+        ThemeManager.Instance.ApplyTheme("Light");
     }
 
     private void ThemeToggleSwitchOnChecked(object? sender, RoutedEventArgs e)
     {
-        ThemeController.Instance.ApplyTheme("Dark");
+        ThemeManager.Instance.ApplyTheme("Dark");
     }
     /// <summary>
     /// выбор языка через комбобокс
@@ -54,7 +54,7 @@ public partial class SettingControl : UserControl
             {
                 // Установите выбранный язык
                 string cultureCode = selectedItem.Content.ToString() == "Русский" ? "ru-RU" : "en-US";
-                LangController.Instance.SetCulture(cultureCode);
+                LanguageManager.Instance.SetCulture(cultureCode);
                 // Обновите строки на новой культуре
                 MainWindow.UpdateUi?.Invoke();
             }
