@@ -28,8 +28,8 @@ namespace NeirotexApp.Services
         public static Settings LoadSettings()
         {
            Settings settings = new Settings();
-           settings.Language = Properties.Settings.Default.Language;
-           settings.Theme = Properties.Settings.Default.Theme;
+           settings.Language = Properties.SettingsApp.Default.Language;
+           settings.Theme = Properties.SettingsApp.Default.Theme;
            return settings;
         }
 
@@ -38,9 +38,9 @@ namespace NeirotexApp.Services
         /// </summary>
         public static void SaveSettings(Settings settings)
         {
-            Properties.Settings.Default.Language = settings.Language;
-            Properties.Settings.Default.Theme = settings.Theme;
-            Properties.Settings.Default.Save();
+            Properties.SettingsApp.Default.Language = settings.Language;
+            Properties.SettingsApp.Default.Theme = settings.Theme;
+            Properties.SettingsApp.Default.Save();
 
         }
     }

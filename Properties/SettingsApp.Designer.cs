@@ -13,11 +13,11 @@ namespace NeirotexApp.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class SettingsApp : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static SettingsApp defaultInstance = ((SettingsApp)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new SettingsApp())));
         
-        public static Settings Default {
+        public static SettingsApp Default {
             get {
                 return defaultInstance;
             }
@@ -25,7 +25,7 @@ namespace NeirotexApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ru-RU")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Language {
             get {
                 return ((string)(this["Language"]));
@@ -37,7 +37,7 @@ namespace NeirotexApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Theme {
             get {
                 return ((string)(this["Theme"]));

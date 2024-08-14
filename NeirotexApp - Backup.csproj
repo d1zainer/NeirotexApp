@@ -47,16 +47,7 @@
     <Content Include="Properties\SettingsApp.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>SettingsApp.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\SettingsApp.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SettingsApp.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

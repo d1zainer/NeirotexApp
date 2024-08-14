@@ -3,7 +3,6 @@ using NeirotexApp.Services;
 using System;
 using Avalonia;
 using Avalonia.Controls.Selection;
-using NeirotexApp.Properties;
 
 namespace NeirotexApp.UI.Managers
 {

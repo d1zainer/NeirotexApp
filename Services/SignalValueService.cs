@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
-
+using Extreme.Mathematics;
 
 
 namespace NeirotexApp.Services
@@ -15,9 +13,9 @@ namespace NeirotexApp.Services
         private double _min; //мин значение
         private double _max; //макс значение
         private long _totalCount; //колличесвто символов
-        private double _sum; // сумма
+        private double _sum; // сумма 
+        private BigFloat _totalSum; // сумма
 
-      
         private const int _blockSize = 100;
 
         private int _samplingRate = 0; // Частота дискретизации
@@ -31,6 +29,7 @@ namespace NeirotexApp.Services
             _min = double.NaN;
             _max = double.NaN;
             _sum = 0;
+            _totalSum = 0;
             _totalCount = 0;
             _samplingRate = samplingRate;
             
@@ -70,9 +69,7 @@ namespace NeirotexApp.Services
             }
             catch (Exception ex)
             {
-              
                 throw new Exception($"Ошибка при обработке файла {filePath}: {ex.Message}");
-               
             }
         }
 
@@ -82,7 +79,7 @@ namespace NeirotexApp.Services
         /// <returns></returns>
         public (double Mean, double Min, double Max) GetResults()
         {
-            _mean = _totalCount > 0 ? _sum / _totalCount : 0;
+            _mean = _totalCount > 0 ? (double)(_totalSum / _totalCount) : 0;
             return (_mean, _min, _max);
         }
 
@@ -118,9 +115,8 @@ namespace NeirotexApp.Services
         private void CalculateStatistics(double[] data, int count)
         {
             if (count == 0) return;
-
-            _sum += data.Take(count).Sum();
-         
+            _sum = data.Sum();
+            _totalSum += (_sum);
             _totalCount += count;
            _min = Math.Min(_min, data.Take(count).Min());
            _max = Math.Max(_max, data.Take(count).Max());    
