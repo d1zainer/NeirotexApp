@@ -11,7 +11,7 @@ namespace NeirotexApp.Services
     public class XMLService
     {
 
-        private  static  string _xmlAppSettings =>  Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppSettings.setting");
+
         /// <summary>
         /// загружает и парсит
         /// </summary>
@@ -30,12 +30,8 @@ namespace NeirotexApp.Services
             catch (Exception ex)
             {
                 MainWindowViewModel.InformationStringAction?.DynamicInvoke(LanguageManager.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
-                throw ex;
+                throw;
             }
         }
-
-      
-
-
     }
 }

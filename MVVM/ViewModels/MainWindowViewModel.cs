@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Threading;
 
 namespace NeirotexApp.MVVM.ViewModels
 {
@@ -75,7 +77,7 @@ namespace NeirotexApp.MVVM.ViewModels
                     {
                         SignalFileName = channel.SignalFileName,
                         UnicNumber = channel.UnicNumber,
-                           
+
                         EffectiveFd = channel.EffectiveFd
                     };
                     viewModel.SetType(channel.Type); // Устанавливаем тип
@@ -87,10 +89,14 @@ namespace NeirotexApp.MVVM.ViewModels
                         _channelDictionary.Add(channel.SignalFileName, viewModel);
                     }
                 }
-            }
-            catch (Exception ex)
+            } //если поля не заполнены
+            catch (NullReferenceException)
             {
-                SetInformationText(LanguageManager.InfoMessageType.ErrorMessage, MessageType.Error, ex.Message);
+                SetInformationText(LanguageManager.InfoMessageType.ErrorBOSMeth, MessageType.Error);
+            } //если неверный формат
+            catch (Exception)
+            {
+                SetInformationText(LanguageManager.InfoMessageType.ErrorXMLDocument, MessageType.Error);
             }
         }
         /// <summary>
@@ -106,10 +112,14 @@ namespace NeirotexApp.MVVM.ViewModels
 
             _threadController = new ThreadManager(ChannelViewModels.ToList());
             await _threadController.StartProcessingAsync();
-            UpdateUi(_threadController.Results);
-            if (_bosMethObject.TemplateGuid != null)
-                SetInformationText(LanguageManager.InfoMessageType.DataProcessedMessage, MessageType.Info,
-                    _bosMethObject.TemplateGuid);
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                UpdateUi(_threadController.Results);
+                if (_bosMethObject.TemplateGuid != null)
+                    SetInformationText(LanguageManager.InfoMessageType.DataProcessedMessage, MessageType.Info,
+                        _bosMethObject.TemplateGuid);
+            });
+           
 
         }
         /// <summary>
@@ -120,7 +130,7 @@ namespace NeirotexApp.MVVM.ViewModels
         {
             foreach (var kvp in keyValuePairs)
             {
-                if (_channelDictionary.TryGetValue(kvp.Key.SignalFileName, out var existingViewModel))
+                if (kvp.Key.SignalFileName != null && _channelDictionary.TryGetValue(kvp.Key.SignalFileName, out var existingViewModel))
                 {
                     existingViewModel.MathValue = Math.Round(kvp.Value.Item1, 3);
                     existingViewModel.MaxValue = Math.Round(kvp.Value.Item3, 3);

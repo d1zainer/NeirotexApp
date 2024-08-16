@@ -42,6 +42,9 @@ public class LanguageManager
         public const string EEG = "EEG";
         public const string ECG = "ECG";
         public const string EMG = "EMG";
+
+
+        public const string OpenDialogTitle = "Select a file";
     }
 
     /// <summary>
@@ -53,7 +56,10 @@ public class LanguageManager
         { InfoMessageType.FileLoadedMessage, "FileLoadedMessage" },
         { InfoMessageType.NoFileLoadedMessage, "NoFileLoadedMessage" },
         { InfoMessageType.DataProcessedMessage, "DataProcessedMessage" },
-        { InfoMessageType.ErrorMessage, "ErrorMessage" }
+        { InfoMessageType.ErrorMessage, "ErrorMessage" },
+        { InfoMessageType.ReadingFileError, "ReadingFileError" },
+        { InfoMessageType.ErrorXMLDocument ,"ErrorXMLDocument"},
+        { InfoMessageType.ErrorBOSMeth ,"ErrorBOSMeth"},
     };
 
     /// <summary>
@@ -66,7 +72,10 @@ public class LanguageManager
         FileLoadedMessage,
         NoFileLoadedMessage,
         DataProcessedMessage,
-        ErrorMessage
+        ErrorMessage,
+        ReadingFileError,
+        ErrorXMLDocument,
+        ErrorBOSMeth
     }
 
     /// <summary>
@@ -133,6 +142,25 @@ public class LanguageManager
         catch (Exception ex)
         {
             throw ex;
+        }
+    }
+
+
+    /// <summary>
+    /// возращает строку с текущим языком
+    /// </summary>
+    /// <returns></returns>
+    public string GetTitleByCulture()
+    {
+        var s = Thread.CurrentThread.CurrentCulture;
+        switch (s.Name)
+        {
+            case "ru-RU":
+                return "Выберите файл";
+            case "en-US":
+                return "Select a file";
+            default:
+                return "Select a file";
         }
     }
 

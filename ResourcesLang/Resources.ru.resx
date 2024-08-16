@@ -177,4 +177,13 @@
   <data name="EMG" xml:space="preserve">
     <value>ЭМГ</value>
   </data>
+  <data name="ErrorBOSMeth" xml:space="preserve">
+    <value>В файле есть ошибки!</value>
+  </data>
+  <data name="ErrorXMLDocument" xml:space="preserve">
+    <value>XML документ неправильного формата!</value>
+  </data>
+  <data name="ReadingFileError" xml:space="preserve">
+    <value>Ошибка при чтении файлa {0}!</value>
+  </data>
 </root>

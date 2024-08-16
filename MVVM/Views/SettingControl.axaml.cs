@@ -21,14 +21,13 @@ public partial class SettingControl : UserControl
         
     }
 
-
-
-
+    /// <summary>
+    /// инициализация контроллов
+    /// </summary>
     public void InitControlls()
     {
         LanguageComboBox.SelectedIndex = Thread.CurrentThread.CurrentCulture.ToString().StartsWith("ru") ? 1 : 0; // Русский
         ThemeToggleSwitch.IsChecked = Application.Current?.ActualThemeVariant.ToString() != "Light";
-
     }
 
     private void ThemeToggleSwitchOnUnchecked(object? sender, RoutedEventArgs e)

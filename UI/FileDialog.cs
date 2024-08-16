@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using NeirotexApp.UI.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,10 +26,10 @@ namespace NeirotexApp.UI
         {
             // Убедитесь, что папка существует перед показом диалога
             EnsureFolderExists();
-
+            var title = LanguageManager.Instance.GetTitleByCulture();
             var dialog = new OpenFileDialog
             {
-                Title = "Выберите файл",
+                Title = title,
                 AllowMultiple = false,
                 Directory = FolderPath,
 

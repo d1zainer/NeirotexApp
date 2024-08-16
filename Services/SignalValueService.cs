@@ -3,6 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Extreme.Mathematics;
+using NeirotexApp.MVVM.ViewModels;
+using NeirotexApp.UI;
+using NeirotexApp.UI.Managers;
 
 
 namespace NeirotexApp.Services
@@ -19,9 +22,6 @@ namespace NeirotexApp.Services
         private const int _blockSize = 100;
 
         private int _samplingRate = 0; // Частота дискретизации
-
-        
-
 
         public SignalValueService(int samplingRate)
         {
@@ -69,7 +69,8 @@ namespace NeirotexApp.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Ошибка при обработке файла {filePath}: {ex.Message}");
+                MainWindowViewModel.InformationStringAction.DynamicInvoke(LanguageManager.InfoMessageType.ReadingFileError, MessageType.Error, ex.Message);
+                throw;
             }
         }
 
@@ -121,8 +122,5 @@ namespace NeirotexApp.Services
            _min = Math.Min(_min, data.Take(count).Min());
            _max = Math.Max(_max, data.Take(count).Max());    
         }
-
-
-
     }
 }

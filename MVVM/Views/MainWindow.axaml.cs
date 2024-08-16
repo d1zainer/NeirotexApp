@@ -20,7 +20,6 @@ namespace NeirotexApp.MVVM.Views
         private readonly MainWindowViewModel _viewModel = MainWindowViewModel.Instance;
         private SettingControl _mySettingControl;
 
-
         public static Action UpdateUi = delegate { };
 
 
@@ -50,25 +49,12 @@ namespace NeirotexApp.MVVM.Views
             };
             
             MyGrid.Children.Add(_mySettingControl);
-
-
         }
         
         private void SettingButton_Click(object? sender, RoutedEventArgs e)
         {
             _mySettingControl.SettingPanel.IsVisible = !_mySettingControl.SettingPanel.IsVisible;
         }
-
-
-        /// <summary>
-        /// Инициализация приложения - язык и цвет темы
-        /// </summary>
-        //public void InitSettings()
-        //{
-        //    LanguageManager.Instance.LoadCulture();
-        //    ThemeManager.Instance.LoadTheme();
-
-        //}
 
         /// <summary>
         /// обновляем строки на новый язык
@@ -104,23 +90,13 @@ namespace NeirotexApp.MVVM.Views
         private async void OnOpenFileButtonClick(object sender, RoutedEventArgs e)
         {
             string? selectedFile = await _fileDialogService.ShowOpenFileDialog(this);
-            try
-            {
-                
-                    if (!string.IsNullOrEmpty(selectedFile))
-                    {
-                        _viewModel.GetBosMeth(selectedFile);
-                        LoadSignalControls();
-                    }
-                
-            }
-            catch (Exception ex)
-            {
-                MainWindowViewModel.InformationStringAction?.DynamicInvoke(LanguageManager.InfoMessageType.ErrorMessage,
-                    MessageType.Error, ex.Message);
-                throw new Exception(ex.Message);
-
-            }
+          
+          if (!string.IsNullOrEmpty(selectedFile))
+          {
+              _viewModel.GetBosMeth(selectedFile);
+              LoadSignalControls();
+          }
+  
         }
 
         /// <summary>
