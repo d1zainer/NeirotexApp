@@ -47,7 +47,7 @@
     <Content Include="Properties\SettingsApp.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>SettingsApp.Designer.cs</LastGenOutput>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

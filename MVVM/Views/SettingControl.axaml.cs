@@ -17,11 +17,12 @@ public partial class SettingControl : UserControl
     {
 
         InitializeComponent();
+        InitControlls();
         ThemeToggleSwitch.IsCheckedChanged += ThemeToggleSwitchChecked;
         
         LanguageComboBox.SelectionChanged += OnLanguageSelectionChanged;
 
-        InitControlls();
+        
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ public partial class SettingControl : UserControl
     /// </summary>
     public void InitControlls()
     {
-        UpdateControlls();
+       
         LanguageComboBox.SelectedIndex = Thread.CurrentThread.CurrentCulture.ToString().StartsWith("ru") ? 1 : 0; // Русский
         ThemeToggleSwitch.IsChecked = Application.Current?.ActualThemeVariant.ToString() != "Light";
         
@@ -40,7 +41,7 @@ public partial class SettingControl : UserControl
     /// </summary>
     public void UpdateControlls()
     {
-        ComboBoxAssist.SetLabel(LanguageComboBox, LanguageManager.Instance.GetString(LanguageManager.TitleKeys.LanguageComboBox));
+        ComboBoxAssist.SetLabel(LanguageComboBox, LanguageManager.Instance.GetString(LanguageManager.TitleKeys.LanguageComboBox)!);
         ThemeToggleSwitch.Content = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.ThemeToggle);
     }
 

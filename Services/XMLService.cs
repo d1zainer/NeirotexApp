@@ -24,7 +24,7 @@ namespace NeirotexApp.Services
                 var serializer = new XmlSerializer(typeof(BOSMeth));
                 using (var reader = new StreamReader(filePath))
                 {
-                    return (BOSMeth)serializer.Deserialize(reader);
+                    return (BOSMeth)serializer.Deserialize(reader)!;
                 }
             }
             catch (Exception ex)

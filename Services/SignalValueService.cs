@@ -41,7 +41,7 @@ namespace NeirotexApp.Services
         /// <param name="filePath"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task ProcessFileAsync(string filePath)
+        public Task ProcessFileAsync(string filePath)
         {
             try
             {
@@ -72,6 +72,8 @@ namespace NeirotexApp.Services
                 MainWindowViewModel.InformationStringAction.DynamicInvoke(LanguageManager.InfoMessageType.ReadingFileError, MessageType.Error, ex.Message);
                 throw;
             }
+
+            return Task.CompletedTask;
         }
 
         /// <summary>

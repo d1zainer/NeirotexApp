@@ -15,28 +15,31 @@ public partial class MainWindow : Window
     public static Action UpdateUi = delegate { };
     private readonly FileDialog _fileDialogService = new();
     private readonly MainWindowViewModel _viewModel = MainWindowViewModel.Instance;
-    private readonly SettingControl _mySettingControl;
+    private  readonly SettingControl _mySettingControl = new SettingControl
+    {
+        Margin = new Thickness(60, 10, 0, 0),
+        HorizontalAlignment = HorizontalAlignment.Left,
+        VerticalAlignment = VerticalAlignment.Top,
+        SettingPanel =
+        {
+            IsVisible = false
+        }
+};
 
 
     public MainWindow()
     {
-        InitializeComponent();
-        _mySettingControl = new SettingControl
-        {
-            Margin = new Thickness(60, 10, 0, 0),
-            HorizontalAlignment = HorizontalAlignment.Left,
-            VerticalAlignment = VerticalAlignment.Top,
-            SettingPanel =
-            {
-                IsVisible = false
-            }
-        };
-        DataContext = _viewModel;
        
-        PointerPressed += OnWindowPointerPressed;
-        UpdateUi += UpdateStrings;
+        InitializeComponent();
+        DataContext = _viewModel;
+
+
+        this. PointerPressed += OnWindowPointerPressed;
+
         SettingButton.Click += SettingButton_Click;
+       
         MyGrid.Children.Add(_mySettingControl);
+        UpdateUi += UpdateStrings;
         UpdateStrings();
     }
 
@@ -59,7 +62,10 @@ public partial class MainWindow : Window
                 sc.UpdateStrings();
         //обновляем вьюмодели
         foreach (var item in _viewModel.ChannelViewModels) item.UpdateTypeString();
-        _mySettingControl.UpdateControlls();
+        
+            _mySettingControl.UpdateControlls();
+        
+        
     }
 
 

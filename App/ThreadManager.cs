@@ -37,7 +37,7 @@ public class ThreadManager
     private async Task ReadFromFileAsync(SignalViewModel signal)
     {
         var calculator = new SignalValueService(signal.EffectiveFd);
-        var filePath = Path.Combine(FileDialog.FolderPath, signal.SignalFileName);
+        var filePath = Path.Combine(FileDialog.FolderPath, signal.SignalFileName!);
 
         // Обработка файла асинхронно
         await calculator.ProcessFileAsync(filePath);
