@@ -56,6 +56,7 @@ public class LanguageManager
         { InfoMessageType.ReadingFileError, "ReadingFileError" },
         { InfoMessageType.ErrorXMLDocument ,"ErrorXMLDocument"},
         { InfoMessageType.ErrorBOSMeth ,"ErrorBOSMeth"},
+        { InfoMessageType.ErrorFilesBCF ,"ErrorFilesBCF"}
     };
 
     /// <summary>
@@ -71,7 +72,8 @@ public class LanguageManager
         ErrorMessage,
         ReadingFileError,
         ErrorXMLDocument,
-        ErrorBOSMeth
+        ErrorBOSMeth,
+        ErrorFilesBCF
     }
 
     /// <summary>

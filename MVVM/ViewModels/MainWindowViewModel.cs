@@ -9,6 +9,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
@@ -49,6 +50,8 @@ namespace NeirotexApp.MVVM.ViewModels
 
             SetInformationText(LanguageManager.InfoMessageType.WelcomeMessage, MessageType.Info);
             InformationStringAction += SetInformationText;
+            
+            
             ChannelViewModels = new ObservableCollection<SignalViewModel>();
         }
         /// <summary>
@@ -104,9 +107,16 @@ namespace NeirotexApp.MVVM.ViewModels
         /// </summary>
         public async Task StartReadProccesingAsync()
         {
+
             if (_filePaths.Count == 0)
             {
                 SetInformationText(LanguageManager.InfoMessageType.NoFileLoadedMessage, MessageType.Error);
+                return;
+            }
+
+            if (!FilesExistInDirectory(FileDialog.FolderPath, _filePaths))
+            {
+                SetInformationText(LanguageManager.InfoMessageType.ErrorFilesBCF, MessageType.Error, FileDialog.FolderPath);
                 return;
             }
 
@@ -147,6 +157,22 @@ namespace NeirotexApp.MVVM.ViewModels
             Message = string.Empty;
             Message = LanguageManager.Instance.GetMessage(messageType, args);
             MessageBrush = ForegroundTextController.GetBrushForMessageType(messageBrushType);
+        }
+
+
+
+        private bool FilesExistInDirectory(string directoryPath, List<string> fileNames)
+        {
+            string[] filesInDirectory = Directory.GetFiles(directoryPath);
+
+            foreach (string fileName in fileNames)
+            {
+                if (filesInDirectory.Any(filePath => Path.GetFileName(filePath) == fileName))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

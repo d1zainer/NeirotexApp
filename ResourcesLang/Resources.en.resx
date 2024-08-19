@@ -186,4 +186,7 @@
   <data name="ReadingFileError" xml:space="preserve">
     <value>Error reading file {0}!</value>
   </data>
+  <data name="ErrorFilesBCF" xml:space="preserve">
+    <value>Files .bcf are not uploaded to the directory {0}!</value>
+  </data>
 </root>

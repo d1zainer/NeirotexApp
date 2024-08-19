@@ -186,4 +186,7 @@
   <data name="ReadingFileError" xml:space="preserve">
     <value>Ошибка при чтении файлa {0}!</value>
   </data>
+  <data name="ErrorFilesBCF" xml:space="preserve">
+    <value>Файлы .bcf не загружены в директорию {0}!</value>
+  </data>
 </root>
