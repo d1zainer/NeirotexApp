@@ -26,7 +26,7 @@ namespace NeirotexApp.UI
         {
             // Убедитесь, что папка существует перед показом диалога
             EnsureFolderExists();
-            var title = LanguageManager.Instance.GetTitleByCulture();
+            var title = LanguageManager.Instance.GetTitleByCulture(LanguageManager.TitleType.FileDialog);
             var dialog = new OpenFileDialog
             {
                 Title = title,

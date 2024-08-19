@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
+using NeirotexApp.UI.Managers;
 
 namespace NeirotexApp
 {
@@ -23,7 +24,7 @@ namespace NeirotexApp
                 return control;
             }
 
-            return new TextBlock { Text = "Not Found: " + name };
+            return new TextBlock { Text = LanguageManager.Instance.GetTitleByCulture(LanguageManager.TitleType.ViewLocator) + name };
         }
 
         public bool Match(object? data)
