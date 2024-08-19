@@ -41,6 +41,11 @@ public class LanguageManager
         public const string EEG = "EEG";
         public const string ECG = "ECG";
         public const string EMG = "EMG";
+
+
+        public const string ThemeToggle = "ThemeToggle";
+        public const string LanguageComboBox = "LanguageComboBox";
+
     }
 
     /// <summary>

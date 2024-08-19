@@ -20,7 +20,8 @@ namespace NeirotexApp.UI
             {
                 MessageType.Error => Brushes.Red,
                 MessageType.Warning => Brushes.Orange,
-                MessageType.Info => new SolidColorBrush(Color.Parse("#4C6A7A"))
+                MessageType.Info => new SolidColorBrush(Color.Parse("#4C6A7A")),
+                _ => new SolidColorBrush(Color.Parse("#4C6A7A"))
             };
         }
 

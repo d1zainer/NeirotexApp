@@ -1,10 +1,13 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using NeirotexApp.UI.Managers;
 using System.Threading;
+using Material.Styles.Assists;
 using NeirotexApp.Services;
+
 
 namespace NeirotexApp.MVVM.Views;
 
@@ -14,8 +17,8 @@ public partial class SettingControl : UserControl
     {
 
         InitializeComponent();
-        ThemeToggleSwitch.Checked += ThemeToggleSwitchOnChecked; 
-        ThemeToggleSwitch.Unchecked += ThemeToggleSwitchOnUnchecked;
+        ThemeToggleSwitch.IsCheckedChanged += ThemeToggleSwitchChecked;
+        
         LanguageComboBox.SelectionChanged += OnLanguageSelectionChanged;
 
         InitControlls();
@@ -26,18 +29,34 @@ public partial class SettingControl : UserControl
     /// </summary>
     public void InitControlls()
     {
+        UpdateControlls();
         LanguageComboBox.SelectedIndex = Thread.CurrentThread.CurrentCulture.ToString().StartsWith("ru") ? 1 : 0; // Русский
         ThemeToggleSwitch.IsChecked = Application.Current?.ActualThemeVariant.ToString() != "Light";
+        
     }
 
-    private void ThemeToggleSwitchOnUnchecked(object? sender, RoutedEventArgs e)
+    /// <summary>
+    /// обновление текста контролов в зависимоти от языка
+    /// </summary>
+    public void UpdateControlls()
     {
-        SettingService.Instance.SetTheme("Light");
+        ComboBoxAssist.SetLabel(LanguageComboBox, LanguageManager.Instance.GetString(LanguageManager.TitleKeys.LanguageComboBox));
+        ThemeToggleSwitch.Content = LanguageManager.Instance.GetString(LanguageManager.TitleKeys.ThemeToggle);
     }
 
-    private void ThemeToggleSwitchOnChecked(object? sender, RoutedEventArgs e)
+    private void ThemeToggleSwitchChecked(object? sender, RoutedEventArgs e)
     {
-        SettingService.Instance.SetTheme("Dark");
+        if (sender is ToggleSwitch toggleSwitch)
+        {
+            if (toggleSwitch.IsChecked == true)
+            {
+                SettingService.Instance.SetTheme("Dark");
+            }
+            else
+            {
+                SettingService.Instance.SetTheme("Light");
+            }
+        }
     }
     /// <summary>
     /// выбор языка через комбобокс

@@ -189,4 +189,10 @@
   <data name="ErrorFilesBCF" xml:space="preserve">
     <value>Файлы .bcf не загружены в директорию {0}!</value>
   </data>
+  <data name="LanguageComboBox" xml:space="preserve">
+    <value>Сменить язык  </value>
+  </data>
+  <data name="ThemeToggle" xml:space="preserve">
+    <value>Тёмная тема  </value>
+  </data>
 </root>

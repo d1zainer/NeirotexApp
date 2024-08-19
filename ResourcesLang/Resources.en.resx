@@ -189,4 +189,10 @@
   <data name="ErrorFilesBCF" xml:space="preserve">
     <value>Files .bcf are not uploaded to the directory {0}!</value>
   </data>
+  <data name="LanguageComboBox" xml:space="preserve">
+    <value>Switch language  </value>
+  </data>
+  <data name="ThemeToggle" xml:space="preserve">
+    <value>Dark theme  </value>
+  </data>
 </root>

@@ -8,7 +8,7 @@ namespace NeirotexApp.MVVM.Models
     public class BOSMeth
     {
         [XmlAttribute("TemplateGUID")]
-        public string TemplateGuid { get; set; } 
+        public string? TemplateGuid { get; set; } 
 
         [XmlElement("Channels")]
         public Channels? Channels { get; set; }

@@ -21,16 +21,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        UpdateStrings();
-        DataContext = _viewModel;
-
-        PointerPressed += OnWindowPointerPressed;
-
-
-        UpdateUi += UpdateStrings;
-
-        SettingButton.Click += SettingButton_Click;
-
         _mySettingControl = new SettingControl
         {
             Margin = new Thickness(60, 10, 0, 0),
@@ -41,8 +31,13 @@ public partial class MainWindow : Window
                 IsVisible = false
             }
         };
-
+        DataContext = _viewModel;
+       
+        PointerPressed += OnWindowPointerPressed;
+        UpdateUi += UpdateStrings;
+        SettingButton.Click += SettingButton_Click;
         MyGrid.Children.Add(_mySettingControl);
+        UpdateStrings();
     }
 
     private void SettingButton_Click(object? sender, RoutedEventArgs e)
@@ -64,6 +59,7 @@ public partial class MainWindow : Window
                 sc.UpdateStrings();
         //обновляем вьюмодели
         foreach (var item in _viewModel.ChannelViewModels) item.UpdateTypeString();
+        _mySettingControl.UpdateControlls();
     }
 
 

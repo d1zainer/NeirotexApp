@@ -38,9 +38,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Classes="LeftHeader"
-                Content="Dark style  "
-                Foreground="#4C6A7A"
-                ToolTip.Tip="Switch ThemeVariant" />
+                Content="Dark style"
+                Foreground="#4C6A7A" />
 
         </StackPanel>
     </Grid>
