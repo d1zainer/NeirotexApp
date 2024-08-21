@@ -42,7 +42,8 @@ namespace NeirotexApp.MVVM.ViewModels
 
         private LanguageManager.InfoMessageType? _currentMessage;
         private MessageType _currentMessageTypeBrush;
-        private object[]? _currentMessageArgs; // Добавлено для хранения аргументов сообщения
+        private object[]? _currentMessageArgs; 
+        private string _bosMethPath = string.Empty;
 
         public MainWindowViewModel()
         {
@@ -70,6 +71,7 @@ namespace NeirotexApp.MVVM.ViewModels
             try
             {
                 _bosMethObject = XMLService.LoadBosMethFromXml(path);
+                _bosMethPath = Path.GetDirectoryName(path); //присваиваем путь, где хранится файл xml
                 SetInformationText(LanguageManager.InfoMessageType.FileLoadedMessage, MessageType.Info, path);
                 ChannelViewModels.Clear();
                 _filePaths.Clear(); // Очистка списка путей
@@ -114,9 +116,10 @@ namespace NeirotexApp.MVVM.ViewModels
                 return;
             }
 
-            if (!FilesExistInDirectory(FileDialog.FolderPath, _filePaths))
+            if (!FilesExistInDirectory(_bosMethPath, _filePaths))
             {
                 SetInformationText(LanguageManager.InfoMessageType.ErrorFilesBCF, MessageType.Error, FileDialog.FolderPath);
+                _bosMethPath = string.Empty; 
                 return;
             }
 
@@ -149,6 +152,12 @@ namespace NeirotexApp.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// выводит информацию в Информационное окно
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="messageBrushType"></param>
+        /// <param name="args"></param>
         private void SetInformationText(LanguageManager.InfoMessageType messageType, MessageType messageBrushType, params object[]? args)
         {
             _currentMessage = messageType;
@@ -161,6 +170,13 @@ namespace NeirotexApp.MVVM.ViewModels
 
 
 
+
+        /// <summary>
+        /// проверяет есть ли файлы в папке
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <param name="fileNames"></param>
+        /// <returns></returns>
         private bool FilesExistInDirectory(string directoryPath, List<string> fileNames)
         {
             string[] filesInDirectory = Directory.GetFiles(directoryPath);
