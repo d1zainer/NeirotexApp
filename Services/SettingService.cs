@@ -15,15 +15,12 @@ namespace NeirotexApp.Services;
 public class SettingService : ILanguageSetting, IThemeSetting
 {
 
-    public static SettingService Instance { get; private set; }
+    public static SettingService Instance { get; private set; } = null!;
 
 
     public static void Init()
     {
-        if (Instance == null)
-        {
-            Instance = new SettingService();
-        }
+        Instance = new SettingService();
     }
     public SettingService()
     {

@@ -63,9 +63,6 @@
     <None Update="Data\MethDescription.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Data\MethDescription1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Data\Signal0.bcf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
